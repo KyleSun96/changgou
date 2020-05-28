@@ -37,4 +37,11 @@ public interface BrandService {
      */
     void add(Brand brand);
 
+
+    /**
+     * @description: //TODO 修改品牌数据
+     * @param: [brand]
+     * @return: void
+     */
+    void update(Brand brand);
 }

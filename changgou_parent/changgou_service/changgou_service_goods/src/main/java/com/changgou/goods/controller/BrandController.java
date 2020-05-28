@@ -46,4 +46,11 @@ public class BrandController {
     }
 
 
+    @PutMapping("/{id}")
+    public Result update(@PathVariable("id") Integer id,@RequestBody Brand brand){
+        brand.setId(id);
+        brandService.update(brand);
+        return new Result(true,StatusCode.OK,"修改成功");
+    }
+
 }

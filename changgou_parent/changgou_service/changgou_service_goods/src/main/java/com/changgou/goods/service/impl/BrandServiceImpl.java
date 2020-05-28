@@ -70,4 +70,20 @@ public class BrandServiceImpl implements BrandService {
 
         brandMapper.insertSelective(brand);
     }
+
+
+    /**
+     * @description: //TODO 修改品牌数据
+     * @param: [brand]
+     * @return: void
+     */
+    @Override
+    public void update(Brand brand) {
+
+        // update brand set name=?,image=?,letter=?,seq=? where id=?
+        brandMapper.updateByPrimaryKey(brand);
+
+        // update brand set if(name!=null )name=? where id=?
+        //  brandMapper.updateByPrimaryKeySelective(brand);
+    }
 }
