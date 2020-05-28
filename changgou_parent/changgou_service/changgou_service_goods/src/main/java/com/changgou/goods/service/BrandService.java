@@ -29,4 +29,12 @@ public interface BrandService {
      */
     Brand findById(Integer id);
 
+
+    /**
+     * @description: //TODO 新增品牌
+     * @param: [brand]
+     * @return: void
+     */
+    void add(Brand brand);
+
 }

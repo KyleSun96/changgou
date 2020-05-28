@@ -1,8 +1,10 @@
 package com.changgou.goods.service.impl;
 
+import com.changgou.common.util.PinYinUtils;
 import com.changgou.goods.dao.BrandMapper;
 import com.changgou.goods.pojo.Brand;
 import com.changgou.goods.service.BrandService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,5 +41,33 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public Brand findById(Integer id) {
         return brandMapper.selectByPrimaryKey(id);
+    }
+
+
+    /**
+     * @description: //TODO 新增品牌
+     * @param: [brand]
+     * @return: void
+     */
+    @Override
+    public void add(Brand brand) {
+
+        String name = brand.getName();
+        if (StringUtils.isBlank(name)) {
+            throw new RuntimeException("参数非法，品牌名不能为空！");
+        }
+
+        // 判断 填写品牌的首字母
+        String letter = brand.getLetter();
+        // 如果没传 letter 参数
+        if (StringUtils.isBlank(letter)) {
+            letter = PinYinUtils.getFirstLetter(name);  // name ? null
+        } else {
+            // 转成大写存储到数据库
+            letter = letter.toUpperCase();
+        }
+        brand.setLetter(letter);
+
+        brandMapper.insertSelective(brand);
     }
 }
