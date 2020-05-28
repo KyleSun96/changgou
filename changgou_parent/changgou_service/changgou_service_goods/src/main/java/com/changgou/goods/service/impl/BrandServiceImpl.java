@@ -114,13 +114,12 @@ public class BrandServiceImpl implements BrandService {
         Example example = new Example(Brand.class);
         // 封装查询条件
         Example.Criteria criteria = example.createCriteria();
-        // where name = 'admin'    字段  条件  值
         if (searchMap != null) {
-            // 品牌名称(模糊) like  %
+            // 设置品牌名称模糊查询
             if (searchMap.get("name") != null && !"".equals(searchMap.get("name"))) {
                 criteria.andLike("name", "%" + searchMap.get("name") + "%");
             }
-            // 按照品牌首字母进行查询(精确)
+            //设置品牌首字母的精确查询
             if (searchMap.get("letter") != null && !"".equals(searchMap.get("letter"))) {
                 criteria.andEqualTo("letter", searchMap.get("letter"));
             }
@@ -142,5 +141,34 @@ public class BrandServiceImpl implements BrandService {
         Page<Brand> brandPage = (Page<Brand>) brandMapper.selectAll();
 
         return brandPage;
+    }
+
+
+    /**
+     * @description: //TODO 品牌列表分页 + 条件查询
+     * @param: [searchMap, page, size]
+     * @return: com.github.pagehelper.Page<com.changgou.goods.pojo.Brand>
+     */
+    @Override
+    public Page<Brand> findPage(Map<String, Object> searchMap, Integer page, Integer size) {
+        // 品牌列表分页
+        PageHelper.startPage(page, size);
+
+        // 条件查询
+        Example example = new Example(Brand.class);
+        Example.Criteria criteria = example.createCriteria();
+        if (searchMap != null) {
+            // 设置品牌名称模糊查询
+            if (searchMap.get("name") != null && !"".equals(searchMap.get("name"))) {
+                criteria.andLike("name", "%" + searchMap.get("name") + "%");
+            }
+            //设置品牌首字母的精确查询
+            if (searchMap.get("letter") != null && !"".equals(searchMap.get("letter"))) {
+                criteria.andEqualTo("letter", searchMap.get("letter"));
+            }
+        }
+
+        Page<Brand> pageInfo = (Page<Brand>) brandMapper.selectByExample(example);
+        return pageInfo;
     }
 }

@@ -71,4 +71,12 @@ public interface BrandService {
      * @return: com.github.pagehelper.Page<com.changgou.goods.pojo.Brand>
      */
     Page<Brand> findPage(Integer page, Integer size);
+
+
+    /**
+     * @description: //TODO 品牌列表分页 + 条件查询
+     * @param: [searchMap, page, size]
+     * @return: com.github.pagehelper.Page<com.changgou.goods.pojo.Brand>
+     */
+    Page<Brand> findPage(Map<String, Object> searchMap, Integer page, Integer size);
 }

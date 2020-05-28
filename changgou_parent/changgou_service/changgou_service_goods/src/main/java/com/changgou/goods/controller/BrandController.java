@@ -78,6 +78,10 @@ public class BrandController {
         return new Result(true, StatusCode.OK, "查询成功", pageResult);
     }
 
-
-
+    @GetMapping("/searchPage/{page}/{size}")
+    public Result findPage(@RequestParam Map<String, Object> searchMap, @PathVariable("page") Integer page, @PathVariable("size") Integer size) {
+        Page<Brand> pageInfo = brandService.findPage(searchMap, page, size);
+        PageResult<Brand> pageResult = new PageResult<>(pageInfo.getTotal(), pageInfo.getResult());
+        return new Result(true, StatusCode.OK, "查询成功", pageResult);
+    }
 }
