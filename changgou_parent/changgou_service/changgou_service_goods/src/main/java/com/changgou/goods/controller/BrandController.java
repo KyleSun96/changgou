@@ -1,14 +1,17 @@
 package com.changgou.goods.controller;
 
+import com.changgou.common.pojo.PageResult;
 import com.changgou.common.pojo.Result;
 import com.changgou.common.pojo.StatusCode;
 import com.changgou.goods.pojo.Brand;
 import com.changgou.goods.service.BrandService;
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Program: ChangGou
@@ -25,8 +28,8 @@ public class BrandController {
 
 
     @GetMapping
-    public Result<List<Brand>> findAll() {
-        List<Brand> brandList = brandService.findAll();
+    public Result<List<Brand>> findList() {
+        List<Brand> brandList = brandService.findList();
         return new Result<>(true, StatusCode.OK, "查询成功", brandList);
     }
 
@@ -59,4 +62,22 @@ public class BrandController {
         brandService.delById(id);
         return new Result(true, StatusCode.OK, "删除成功");
     }
+
+
+    @GetMapping("/search")
+    public Result<List<Brand>> search(@RequestParam Map<String, Object> searchMap) {
+        List<Brand> search = brandService.search(searchMap);
+        return new Result<>(true, StatusCode.OK, "查询成功", search);
+    }
+
+
+    @GetMapping("/search/{page}/{size}")
+    public Result findPage(@PathVariable("page") Integer page, @PathVariable("size") Integer size) {
+        Page<Brand> pageInfo = brandService.findPage(page, size);
+        PageResult<Brand> pageResult = new PageResult<>(pageInfo.getTotal(), pageInfo.getResult());
+        return new Result(true, StatusCode.OK, "查询成功", pageResult);
+    }
+
+
+
 }

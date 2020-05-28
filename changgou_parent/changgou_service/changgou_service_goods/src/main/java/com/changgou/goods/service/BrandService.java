@@ -1,9 +1,12 @@
 package com.changgou.goods.service;
 
 import com.changgou.goods.pojo.Brand;
+import com.github.pagehelper.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Program: ChangGou
@@ -19,7 +22,7 @@ public interface BrandService {
      * @param: []
      * @return: java.util.List<com.changgou.goods.pojo.Brand>
      */
-    List<Brand> findAll();
+    List<Brand> findList();
 
 
     /**
@@ -47,9 +50,25 @@ public interface BrandService {
 
 
     /**
-     * @description: //TODO 删除品牌
+     * @description: //TODO 根据ID删除品牌数据
      * @param: [id]
      * @return: void
      */
     void delById(Integer id);
+
+
+    /**
+     * @description: //TODO 多条件搜索品牌方法
+     * @param: [searchMap]
+     * @return: java.util.List<com.changgou.goods.pojo.Brand>
+     */
+    List<Brand> search(Map<String, Object> searchMap);
+
+
+    /**
+     * @description: //TODO 品牌列表分页查询
+     * @param: [page, size]
+     * @return: com.github.pagehelper.Page<com.changgou.goods.pojo.Brand>
+     */
+    Page<Brand> findPage(Integer page, Integer size);
 }

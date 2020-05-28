@@ -4,11 +4,15 @@ import com.changgou.common.util.PinYinUtils;
 import com.changgou.goods.dao.BrandMapper;
 import com.changgou.goods.pojo.Brand;
 import com.changgou.goods.service.BrandService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Program: ChangGou
@@ -28,7 +32,7 @@ public class BrandServiceImpl implements BrandService {
      * @return: java.util.List<com.changgou.goods.pojo.Brand>
      */
     @Override
-    public List<Brand> findAll() {
+    public List<Brand> findList() {
         return brandMapper.selectAll();
     }
 
@@ -89,12 +93,54 @@ public class BrandServiceImpl implements BrandService {
 
 
     /**
-     * @description: //TODO 删除品牌
+     * @description: //TODO 根据ID删除品牌数据
      * @param: [id]
      * @return: void
      */
     @Override
     public void delById(Integer id) {
         brandMapper.deleteByPrimaryKey(id);
+    }
+
+
+    /**
+     * @description: //TODO 多条件搜索品牌方法
+     * @param: [searchMap]
+     * @return: java.util.List<com.changgou.goods.pojo.Brand>
+     */
+    @Override
+    public List<Brand> search(Map<String, Object> searchMap) {
+
+        Example example = new Example(Brand.class);
+        // 封装查询条件
+        Example.Criteria criteria = example.createCriteria();
+        // where name = 'admin'    字段  条件  值
+        if (searchMap != null) {
+            // 品牌名称(模糊) like  %
+            if (searchMap.get("name") != null && !"".equals(searchMap.get("name"))) {
+                criteria.andLike("name", "%" + searchMap.get("name") + "%");
+            }
+            // 按照品牌首字母进行查询(精确)
+            if (searchMap.get("letter") != null && !"".equals(searchMap.get("letter"))) {
+                criteria.andEqualTo("letter", searchMap.get("letter"));
+            }
+        }
+
+        return brandMapper.selectByExample(example);
+    }
+
+
+    /**
+     * @description: //TODO 品牌列表分页查询
+     * @param: [page, size]
+     * @return: com.github.pagehelper.Page<com.changgou.goods.pojo.Brand>
+     */
+    @Override
+    public Page<Brand> findPage(Integer page, Integer size) {
+
+        PageHelper.startPage(page, size);
+        Page<Brand> brandPage = (Page<Brand>) brandMapper.selectAll();
+
+        return brandPage;
     }
 }
