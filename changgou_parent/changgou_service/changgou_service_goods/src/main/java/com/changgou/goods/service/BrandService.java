@@ -13,11 +13,20 @@ import java.util.List;
  **/
 public interface BrandService {
 
+
     /**
      * @description: //TODO 查询所有品牌
      * @param: []
      * @return: java.util.List<com.changgou.goods.pojo.Brand>
      */
     List<Brand> findAll();
+
+
+    /**
+     * @description: //TODO 根据ID查询
+     * @param: [id]
+     * @return: com.changgou.goods.pojo.Brand
+     */
+    Brand findById(Integer id);
 
 }
