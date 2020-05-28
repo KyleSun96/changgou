@@ -1,9 +1,9 @@
-package com.changgou.goods.service.impl;
+package com.changgou.service.goods.service.impl;
 
 import com.changgou.common.util.PinYinUtils;
-import com.changgou.goods.dao.BrandMapper;
+import com.changgou.service.goods.dao.BrandMapper;
 import com.changgou.goods.pojo.Brand;
-import com.changgou.goods.service.BrandService;
+import com.changgou.service.goods.service.BrandService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang.StringUtils;
@@ -38,7 +38,7 @@ public class BrandServiceImpl implements BrandService {
 
 
     /**
-     * @description: //TODO 根据ID查询
+     * @description: //TODO 根据ID查询品牌
      * @param: [id]
      * @return: com.changgou.goods.pojo.Brand
      */

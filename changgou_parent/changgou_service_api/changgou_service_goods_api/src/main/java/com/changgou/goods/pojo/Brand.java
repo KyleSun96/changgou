@@ -1,5 +1,7 @@
 package com.changgou.goods.pojo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +11,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
+@ApiModel("品牌实体")
 @Table(name = "tb_brand")
 public class Brand implements Serializable {
 
@@ -18,14 +21,19 @@ public class Brand implements Serializable {
      */
 
     @Id
-    private Integer id;     //品牌id
+    @ApiModelProperty("品牌id")
+    private Integer id;         //品牌id
 
-    private String name;    //品牌名称
+    @ApiModelProperty("品牌名称")
+    private String name;        //品牌名称
 
-    private String image;   //品牌图片地址
+    @ApiModelProperty("品牌图片地址")
+    private String image;       //品牌图片地址
 
-    private String letter;  //品牌的首字母
+    @ApiModelProperty("品牌的首字母")
+    private String letter;      //品牌的首字母
 
-    private Integer seq;    //排序
+    @ApiModelProperty("排序")
+    private Integer seq;        //排序
 
 }

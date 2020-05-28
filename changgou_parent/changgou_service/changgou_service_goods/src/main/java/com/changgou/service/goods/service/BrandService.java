@@ -1,4 +1,4 @@
-package com.changgou.goods.service;
+package com.changgou.service.goods.service;
 
 import com.changgou.goods.pojo.Brand;
 import com.github.pagehelper.Page;
@@ -26,7 +26,7 @@ public interface BrandService {
 
 
     /**
-     * @description: //TODO 根据ID查询
+     * @description: //TODO 根据ID查询品牌
      * @param: [id]
      * @return: com.changgou.goods.pojo.Brand
      */
@@ -79,4 +79,5 @@ public interface BrandService {
      * @return: com.github.pagehelper.Page<com.changgou.goods.pojo.Brand>
      */
     Page<Brand> findPage(Map<String, Object> searchMap, Integer page, Integer size);
+
 }
