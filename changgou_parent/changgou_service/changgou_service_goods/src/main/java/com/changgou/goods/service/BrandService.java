@@ -44,4 +44,12 @@ public interface BrandService {
      * @return: void
      */
     void update(Brand brand);
+
+
+    /**
+     * @description: //TODO 删除品牌
+     * @param: [id]
+     * @return: void
+     */
+    void delById(Integer id);
 }

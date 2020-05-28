@@ -40,17 +40,23 @@ public class BrandController {
 
     @PostMapping
     @Transactional
-    public Result<Brand> add(@RequestBody Brand brand){
+    public Result<Brand> add(@RequestBody Brand brand) {
         brandService.add(brand);
         return new Result<>(true, StatusCode.OK, "添加成功");
     }
 
 
     @PutMapping("/{id}")
-    public Result update(@PathVariable("id") Integer id,@RequestBody Brand brand){
+    public Result update(@PathVariable("id") Integer id, @RequestBody Brand brand) {
         brand.setId(id);
         brandService.update(brand);
-        return new Result(true,StatusCode.OK,"修改成功");
+        return new Result(true, StatusCode.OK, "修改成功");
     }
 
+
+    @DeleteMapping("/{id}")
+    public Result delById(@PathVariable("id") Integer id) {
+        brandService.delById(id);
+        return new Result(true, StatusCode.OK, "删除成功");
+    }
 }

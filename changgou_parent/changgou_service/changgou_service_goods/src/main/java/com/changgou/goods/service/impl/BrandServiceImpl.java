@@ -86,4 +86,15 @@ public class BrandServiceImpl implements BrandService {
         // update brand set if(name!=null )name=? where id=?
         //  brandMapper.updateByPrimaryKeySelective(brand);
     }
+
+
+    /**
+     * @description: //TODO 删除品牌
+     * @param: [id]
+     * @return: void
+     */
+    @Override
+    public void delById(Integer id) {
+        brandMapper.deleteByPrimaryKey(id);
+    }
 }
