@@ -20,20 +20,20 @@ public class Brand implements Serializable {
         键属性
      */
 
-    @Id
-    @ApiModelProperty("品牌id")
-    private Integer id;         //品牌id
+	@Id
+	@ApiModelProperty("品牌id")
+	private Integer id;         //品牌id
 
-    @ApiModelProperty("品牌名称")
-    private String name;        //品牌名称
+	@ApiModelProperty("品牌名称")
+	private String name;        //品牌名称
 
-    @ApiModelProperty("品牌图片地址")
-    private String image;       //品牌图片地址
+	@ApiModelProperty("品牌图片地址")
+	private String image;       //品牌图片地址
 
-    @ApiModelProperty("品牌的首字母")
-    private String letter;      //品牌的首字母
+	@ApiModelProperty("品牌的首字母")
+	private String letter;      //品牌的首字母
 
-    @ApiModelProperty("排序")
-    private Integer seq;        //排序
+	@ApiModelProperty("排序")
+	private Integer seq;        //排序
 
 }
