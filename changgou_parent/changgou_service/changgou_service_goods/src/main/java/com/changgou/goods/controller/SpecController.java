@@ -6,6 +6,7 @@ import com.changgou.entity.StatusCode;
 import com.changgou.goods.service.SpecService;
 import com.changgou.goods.pojo.Spec;
 import com.github.pagehelper.Page;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -81,6 +82,7 @@ public class SpecController {
         return new Result(true, StatusCode.OK, "删除成功");
     }
 
+
     /***
      * 多条件搜索品牌数据
      * @param searchMap
@@ -107,5 +109,11 @@ public class SpecController {
         return new Result(true, StatusCode.OK, "查询成功", pageResult);
     }
 
+    @GetMapping("/category/{categoryName}")
+    @ApiOperation("根据商品分类名称查询规格列表")
+    public Result findSpecListByCategoryName(@PathVariable("categoryName") String categoryName) {
+        List<Map> specList = specService.findSpecListByCategoryName(categoryName);
+        return new Result(true, StatusCode.OK, "查询成功", specList);
+    }
 
 }

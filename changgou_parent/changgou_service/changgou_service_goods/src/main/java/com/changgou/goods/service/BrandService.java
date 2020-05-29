@@ -86,6 +86,7 @@ public interface BrandService {
      * @param: [categoryName]
      * @return: java.util.List<java.util.Map>
      */
-    List<Map> findListByCategoryName(String categoryName);
+    List<Map> findBrandListByCategoryName(String categoryName);
+
 }
 

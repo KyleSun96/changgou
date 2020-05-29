@@ -105,8 +105,9 @@ public class BrandController {
 
     @GetMapping("/category/{categoryName}")
     @ApiOperation("根据商品分类名称查询品牌列表")
-    public Result findListByCategoryName(@PathVariable("categoryName") String categoryName) {
-        List<Map> brandList = brandService.findListByCategoryName(categoryName);
+    public Result findBrandListByCategoryName(@PathVariable("categoryName") String categoryName) {
+        List<Map> brandList = brandService.findBrandListByCategoryName(categoryName);
         return new Result(true, StatusCode.OK, "查询成功", brandList);
     }
+
 }

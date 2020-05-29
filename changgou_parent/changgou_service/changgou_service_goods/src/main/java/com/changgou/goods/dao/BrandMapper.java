@@ -16,13 +16,7 @@ import java.util.Map;
  **/
 public interface BrandMapper extends Mapper<Brand> {
 
-    @Select("SELECT \n" +
-            "\tNAME,image \n" +
-            "FROM\n" +
-            "\ttb_brand \n" +
-            "WHERE\n" +
-            "\tid IN ( SELECT brand_id FROM tb_category_brand WHERE category_id IN ( \n" +
-            "\tSELECT id FROM `tb_category` WHERE `name` = #{name} )) order by seq ")
-    List<Map> findListByCategoryName(@Param("name") String categoryName);
+    @Select("SELECT NAME , image FROM tb_brand WHERE id IN ( SELECT brand_id FROM tb_category_brand WHERE category_id IN ( SELECT id FROM tb_category WHERE name = #{name} )) order by seq")
+    List<Map> findBrandListByCategoryName(@Param("name") String categoryName);
 
 }

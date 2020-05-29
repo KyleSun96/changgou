@@ -63,7 +63,10 @@ public interface SpecService {
      */
     Page<Spec> findPage(Map<String, Object> searchMap, int page, int size);
 
-
-
-
+    /**
+     * @description: //TODO 根据商品分类名称查询规格列表
+     * @param: [categoryName]
+     * @return: java.util.List<java.util.Map>
+     */
+    List<Map> findSpecListByCategoryName(String categoryName);
 }
