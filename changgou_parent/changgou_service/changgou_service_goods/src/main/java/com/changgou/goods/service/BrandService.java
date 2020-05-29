@@ -2,6 +2,7 @@ package com.changgou.goods.service;
 
 import com.changgou.goods.pojo.Brand;
 import com.github.pagehelper.Page;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -79,5 +80,12 @@ public interface BrandService {
      */
     Page<Brand> findPage(Map<String, Object> searchMap, Integer page, Integer size);
 
+
+    /**
+     * @description: //TODO 根据商品分类名称查询品牌列表
+     * @param: [categoryName]
+     * @return: java.util.List<java.util.Map>
+     */
+    List<Map> findListByCategoryName(String categoryName);
 }
 

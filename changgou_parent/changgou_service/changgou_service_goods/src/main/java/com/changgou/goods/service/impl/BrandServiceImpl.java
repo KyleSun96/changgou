@@ -180,4 +180,9 @@ public class BrandServiceImpl implements BrandService {
         return (Page<Brand>) brandMapper.selectByExample(example);
     }
 
+    @Override
+    public List<Map> findListByCategoryName(String categoryName) {
+        return brandMapper.findListByCategoryName(categoryName);
+    }
+
 }
