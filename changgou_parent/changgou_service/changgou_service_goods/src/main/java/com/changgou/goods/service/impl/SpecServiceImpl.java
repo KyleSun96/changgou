@@ -148,6 +148,11 @@ public class SpecServiceImpl implements SpecService {
         return example;
     }
 
+    /**
+     * @description: //TODO 根据商品分类名称查询规格列表
+     * @param: [categoryName]
+     * @return: java.util.List<java.util.Map>
+     */
     @Override
     public List<Map> findSpecListByCategoryName(String categoryName) {
         List<Map> specList = specMapper.findSpecListByCategoryName(categoryName);
