@@ -180,6 +180,12 @@ public class BrandServiceImpl implements BrandService {
         return (Page<Brand>) brandMapper.selectByExample(example);
     }
 
+
+    /**
+     * @description: //TODO 根据商品分类名称查询品牌列表
+     * @param: [categoryName]
+     * @return: java.util.List<java.util.Map>
+     */
     @Override
     public List<Map> findBrandListByCategoryName(String categoryName) {
         return brandMapper.findBrandListByCategoryName(categoryName);
