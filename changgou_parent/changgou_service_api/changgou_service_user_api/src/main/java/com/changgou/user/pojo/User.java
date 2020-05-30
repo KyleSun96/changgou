@@ -1,183 +1,59 @@
 package com.changgou.user.pojo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
  * user实体类
- * @author 黑马架构师2.5
- *
  */
-@Table(name="tb_user")
+@Getter
+@Setter
+@Table(name = "tb_user")
 public class User implements Serializable {
 
-	@Id
-	private String username;//用户名
+    @Id
+    private String username;//用户名
 
+    private String password;//密码，加密存储
 
-	
-	private String password;//密码，加密存储
-	private String phone;//注册手机号
-	private String email;//注册邮箱
-	private java.util.Date created;//创建时间
-	private java.util.Date updated;//修改时间
-	private String sourceType;//会员来源：1:PC，2：H5，3：Android，4：IOS
-	private String nickName;//昵称
-	private String name;//真实姓名
-	private String status;//使用状态（1正常 0非正常）
-	private String headPic;//头像地址
-	private String qq;//QQ号码
-	private String isMobileCheck;//手机是否验证 （0否  1是）
-	private String isEmailCheck;//邮箱是否检测（0否  1是）
-	private String sex;//性别，1男，0女
-	private Integer userLevel;//会员等级
-	private Integer points;//积分
-	private Integer experienceValue;//经验值
-	private java.util.Date birthday;//出生年月日
-	private java.util.Date lastLoginTime;//最后登录时间
+    private String phone;//注册手机号
 
-	
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    private String email;//注册邮箱
 
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    private java.util.Date created;//创建时间
 
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    private java.util.Date updated;//修改时间
 
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    private String sourceType;//会员来源：1:PC，2：H5，3：Android，4：IOS
 
-	public java.util.Date getCreated() {
-		return created;
-	}
-	public void setCreated(java.util.Date created) {
-		this.created = created;
-	}
+    private String nickName;//昵称
 
-	public java.util.Date getUpdated() {
-		return updated;
-	}
-	public void setUpdated(java.util.Date updated) {
-		this.updated = updated;
-	}
+    private String name;//真实姓名
 
-	public String getSourceType() {
-		return sourceType;
-	}
-	public void setSourceType(String sourceType) {
-		this.sourceType = sourceType;
-	}
+    private String status;//使用状态（1正常 0非正常）
 
-	public String getNickName() {
-		return nickName;
-	}
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
+    private String headPic;//头像地址
 
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+    private String qq;//QQ号码
 
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    private String isMobileCheck;//手机是否验证 （0否  1是）
 
-	public String getHeadPic() {
-		return headPic;
-	}
-	public void setHeadPic(String headPic) {
-		this.headPic = headPic;
-	}
+    private String isEmailCheck;//邮箱是否检测（0否  1是）
 
-	public String getQq() {
-		return qq;
-	}
-	public void setQq(String qq) {
-		this.qq = qq;
-	}
+    private String sex;//性别，1男，0女
 
-	public String getIsMobileCheck() {
-		return isMobileCheck;
-	}
-	public void setIsMobileCheck(String isMobileCheck) {
-		this.isMobileCheck = isMobileCheck;
-	}
+    private Integer userLevel;//会员等级
 
-	public String getIsEmailCheck() {
-		return isEmailCheck;
-	}
-	public void setIsEmailCheck(String isEmailCheck) {
-		this.isEmailCheck = isEmailCheck;
-	}
+    private Integer points;//积分
 
-	public String getSex() {
-		return sex;
-	}
-	public void setSex(String sex) {
-		this.sex = sex;
-	}
+    private Integer experienceValue;//经验值
 
-	public Integer getUserLevel() {
-		return userLevel;
-	}
-	public void setUserLevel(Integer userLevel) {
-		this.userLevel = userLevel;
-	}
+    private java.util.Date birthday;//出生年月日
 
-	public Integer getPoints() {
-		return points;
-	}
-	public void setPoints(Integer points) {
-		this.points = points;
-	}
-
-	public Integer getExperienceValue() {
-		return experienceValue;
-	}
-	public void setExperienceValue(Integer experienceValue) {
-		this.experienceValue = experienceValue;
-	}
-
-	public java.util.Date getBirthday() {
-		return birthday;
-	}
-	public void setBirthday(java.util.Date birthday) {
-		this.birthday = birthday;
-	}
-
-	public java.util.Date getLastLoginTime() {
-		return lastLoginTime;
-	}
-	public void setLastLoginTime(java.util.Date lastLoginTime) {
-		this.lastLoginTime = lastLoginTime;
-	}
-
-
+    private java.util.Date lastLoginTime;//最后登录时间
 
 }

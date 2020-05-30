@@ -1,63 +1,29 @@
 package com.changgou.system.pojo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
  * menu实体类
- * @author 黑马架构师2.5
- *
  */
-@Table(name="tb_menu")
+@Getter
+@Setter
+@Table(name = "tb_menu")
 public class Menu implements Serializable {
 
-	@Id
-	private String id;//菜单ID
+    @Id
+    private String id;		//菜单ID
 
+    private String name;	//菜单名称
 
-	
-	private String name;//菜单名称
-	private String icon;//图标
-	private String url;//URL
-	private String parentId;//上级菜单ID
+    private String icon;	//图标
 
-	
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
+    private String url;		//URL
 
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getIcon() {
-		return icon;
-	}
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public String getParentId() {
-		return parentId;
-	}
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
-	}
-
-
+    private String parentId;//上级菜单ID
 
 }

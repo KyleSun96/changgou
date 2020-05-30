@@ -1,71 +1,31 @@
 package com.changgou.business.pojo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
  * activity实体类
- * @author 黑马架构师2.5
- *
  */
-@Table(name="tb_activity")
+@Getter
+@Setter
+@Table(name = "tb_activity")
 public class Activity implements Serializable {
 
-	@Id
-	private Integer id;//ID
+    @Id
+    private Integer id;    			   	//ID
 
+    private String title;               //活动标题
 
-	
-	private String title;//活动标题
-	private java.util.Date startTime;//开始时间
-	private java.util.Date endTime;//结束时间
-	private String status;//状态
-	private String content;//活动内容
+    private java.util.Date startTime;   //开始时间
 
-	
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    private java.util.Date endTime;    	//结束时间
 
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    private String status;				//状态
 
-	public java.util.Date getStartTime() {
-		return startTime;
-	}
-	public void setStartTime(java.util.Date startTime) {
-		this.startTime = startTime;
-	}
-
-	public java.util.Date getEndTime() {
-		return endTime;
-	}
-	public void setEndTime(java.util.Date endTime) {
-		this.endTime = endTime;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-
+    private String content;				//活动内容
 
 }
