@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice   // 声明该类是个增强类
 public class BaseExceptionHandler {
 
+    // 声明当前方法是一个异常处理的 Handler，并且用 value指定 对哪个异常进行处理
+    @ExceptionHandler(value = Exception.class)
     @ResponseBody
-    @ExceptionHandler(value = Exception.class)  // 声明对哪个异常进行处理
     public Result error(Exception e) {
         e.printStackTrace();
         return new Result(false, StatusCode.ERROR, "当前系统繁忙，请稍后重试！");
