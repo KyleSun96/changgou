@@ -1,4 +1,4 @@
-package com.changgou.system.pojo;
+package com.changgou.pojo;
 
 import lombok.Getter;
 import lombok.Setter;
