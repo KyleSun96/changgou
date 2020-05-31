@@ -5,12 +5,15 @@ import com.changgou.entity.Result;
 import com.changgou.entity.StatusCode;
 import com.changgou.system.service.AdminService;
 import com.changgou.pojo.Admin;
+import com.changgou.util.JwtUtil;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin
@@ -89,12 +92,25 @@ public class AdminController {
      */
     @PostMapping(value = "/login")
     public Result login(@RequestBody Admin admin) {
+
         boolean login = adminService.login(admin);
 
         if (login) {
-            return new Result(true, StatusCode.OK, "登录成功");
+            // 密码正确，生成jwtToken给客户端
+
+            // 新建一个map用于储存信息
+            HashMap<String, String> info = new HashMap<>();
+            String loginName = admin.getLoginName();
+
+            // 工具类中已经设置 jwt 过期时间为1小时，如无特殊要求，传null即可
+            String jwtToken = JwtUtil.createJWT(UUID.randomUUID().toString(), loginName, null);
+
+            info.put("username", loginName);
+            info.put("jwtToken", jwtToken);
+
+            return new Result(true, StatusCode.OK, "登录成功", info);
         }
-        return new Result(true, StatusCode.ERROR, "用户名或密码错误");
+        return new Result(false, StatusCode.ERROR, "用户名或密码错误");
     }
 
 
