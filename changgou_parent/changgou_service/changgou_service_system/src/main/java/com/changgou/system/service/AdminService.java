@@ -16,6 +16,7 @@ public interface AdminService {
 
     /**
      * 根据ID查询
+     *
      * @param id
      * @return
      */
@@ -63,7 +64,10 @@ public interface AdminService {
      */
     Page<Admin> findPage(Map<String, Object> searchMap, int page, int size);
 
-
-
-
+    /**
+     * @description: //TODO 登录验证密码
+     * @param: []
+     * @return: boolean
+     */
+    boolean login(Admin admin);
 }

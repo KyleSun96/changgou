@@ -116,6 +116,29 @@ public class AdminServiceImpl implements AdminService {
     }
 
     /**
+     * @description: //TODO 登录验证密码
+     * @param: [admin]
+     * @return: boolean
+     */
+    @Override
+    public boolean login(Admin admin) {
+
+        // 根据登录名查询管理员
+        Admin tempAdmin = new Admin();
+        tempAdmin.setLoginName(admin.getLoginName());
+
+        // 数据库查询出的对象
+        Admin dbAdmin = adminMapper.selectOne(tempAdmin);
+
+        if (dbAdmin == null) {
+            return false;
+        } else {
+            // 验证密码，第一个参数为明文密码，第二个参数为密文密码
+            return BCrypt.checkpw(admin.getPassword(), dbAdmin.getPassword());
+        }
+    }
+
+    /**
      * 构建查询对象
      *
      * @param searchMap

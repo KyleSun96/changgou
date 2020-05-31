@@ -81,6 +81,23 @@ public class AdminController {
         return new Result(true, StatusCode.OK, "删除成功");
     }
 
+
+    /**
+     * @description: //TODO 管理员登录
+     * @param: []
+     * @return: com.changgou.entity.Result
+     */
+    @PostMapping(value = "/login")
+    public Result login(@RequestBody Admin admin) {
+        boolean login = adminService.login(admin);
+
+        if (login) {
+            return new Result(true, StatusCode.OK, "登录成功");
+        }
+        return new Result(true, StatusCode.ERROR, "用户名或密码错误");
+    }
+
+
     /***
      * 多条件搜索品牌数据
      * @param searchMap
