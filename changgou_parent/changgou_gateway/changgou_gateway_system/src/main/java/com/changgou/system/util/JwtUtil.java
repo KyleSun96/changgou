@@ -1,5 +1,6 @@
-package com.changgou.util;
+package com.changgou.system.util;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -59,4 +60,19 @@ public class JwtUtil {
         SecretKey key = new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
         return key;
     }
+
+
+    /**
+     * @description: //TODO 解析 jwtToken
+     * @param: [jwt]
+     * @return: io.jsonwebtoken.Claims
+     */
+    public static Claims parseJWT(String jwt) throws Exception {
+        SecretKey secretKey = generalKey();
+        return Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(jwt)
+                .getBody();
+    }
+
 }
