@@ -5,7 +5,7 @@ import com.changgou.entity.Result;
 import com.changgou.entity.StatusCode;
 import com.changgou.system.service.AdminService;
 import com.changgou.pojo.Admin;
-import com.changgou.util.JwtUtil;
+import com.changgou.system.util.JwtUtil;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -106,7 +106,7 @@ public class AdminController {
             String jwtToken = JwtUtil.createJWT(UUID.randomUUID().toString(), loginName, null);
 
             info.put("username", loginName);
-            info.put("jwtToken", jwtToken);
+            info.put("token", jwtToken);
 
             return new Result(true, StatusCode.OK, "登录成功", info);
         }
@@ -139,6 +139,5 @@ public class AdminController {
         PageResult pageResult = new PageResult(pageList.getTotal(), pageList.getResult());
         return new Result(true, StatusCode.OK, "查询成功", pageResult);
     }
-
 
 }
