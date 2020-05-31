@@ -39,3 +39,6 @@ hystrix:
           strategy: SEMAPHORE
           thread:
             timeoutInMilliseconds: 20000  # 熔断器超时时间，默认：1000/毫秒
+
+workerId: 0
+datacenterId: 0
