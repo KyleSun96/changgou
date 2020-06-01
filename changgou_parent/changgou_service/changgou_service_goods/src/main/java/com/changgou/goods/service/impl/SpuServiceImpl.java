@@ -1,10 +1,7 @@
 package com.changgou.goods.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.changgou.goods.dao.BrandMapper;
-import com.changgou.goods.dao.CategoryMapper;
-import com.changgou.goods.dao.SkuMapper;
-import com.changgou.goods.dao.SpuMapper;
+import com.changgou.goods.dao.*;
 import com.changgou.goods.pojo.*;
 import com.changgou.goods.service.SpuService;
 import com.changgou.util.IdWorker;
@@ -36,6 +33,9 @@ public class SpuServiceImpl implements SpuService {
 
     @Autowired
     private BrandMapper brandMapper;
+
+    @Autowired
+    private CategoryBrandMapper categoryBrandMapper;
 
 
     /**
@@ -108,6 +108,9 @@ public class SpuServiceImpl implements SpuService {
      */
     private void saveSkuList(Goods goods) {
 
+        // 设置品牌与分类的关联关系
+        this.setCategoryBrand(goods);
+
         // 获取 spu 对象
         Spu spu = goods.getSpu();
         // 获取当前日期
@@ -155,6 +158,26 @@ public class SpuServiceImpl implements SpuService {
             }
         }
 
+    }
+
+
+    /**
+     * @description: //TODO 设置品牌与分类的关联关系
+     * @param: [goods]
+     * @return: void
+     */
+    private void setCategoryBrand(Goods goods) {
+
+        CategoryBrand categoryBrand = new CategoryBrand();
+        categoryBrand.setCategoryId(goods.getSpu().getCategory3Id());
+        categoryBrand.setBrandId(goods.getSpu().getBrandId());
+
+        int count = categoryBrandMapper.selectCount(categoryBrand);
+
+        if (count == 0) {
+            // 如果没有关系数据则添加品牌和分类关系
+            categoryBrandMapper.insert(categoryBrand);
+        }
     }
 
 
