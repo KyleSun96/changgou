@@ -3,6 +3,7 @@ package com.changgou.goods.controller;
 import com.changgou.entity.PageResult;
 import com.changgou.entity.Result;
 import com.changgou.entity.StatusCode;
+import com.changgou.goods.pojo.Goods;
 import com.changgou.goods.service.SpuService;
 import com.changgou.goods.pojo.Spu;
 import com.github.pagehelper.Page;
@@ -45,13 +46,13 @@ public class SpuController {
 
 
     /***
-     * 新增数据
-     * @param spu
+     * 新增商品
+     * @param goods
      * @return
      */
     @PostMapping
-    public Result add(@RequestBody Spu spu) {
-        spuService.add(spu);
+    public Result add(@RequestBody Goods goods) {
+        spuService.add(goods);
         return new Result(true, StatusCode.OK, "添加成功");
     }
 
