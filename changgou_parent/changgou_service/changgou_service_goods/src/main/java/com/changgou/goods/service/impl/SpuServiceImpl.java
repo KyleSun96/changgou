@@ -77,7 +77,6 @@ public class SpuServiceImpl implements SpuService {
 
     }
 
-
     /**
      * @description: //TODO 添加 spu
      * @param: [goods]
@@ -99,7 +98,6 @@ public class SpuServiceImpl implements SpuService {
         spuMapper.insertSelective(spu);
 
     }
-
 
     /**
      * @description: //TODO 添加 sku 集合
@@ -160,7 +158,6 @@ public class SpuServiceImpl implements SpuService {
 
     }
 
-
     /**
      * @description: //TODO 设置品牌与分类的关联关系
      * @param: [goods]
@@ -179,7 +176,6 @@ public class SpuServiceImpl implements SpuService {
             categoryBrandMapper.insert(categoryBrand);
         }
     }
-
 
     /**
      * 修改
@@ -200,7 +196,6 @@ public class SpuServiceImpl implements SpuService {
     public void delete(String id) {
         spuMapper.deleteByPrimaryKey(id);
     }
-
 
     /**
      * 条件查询
