@@ -9,9 +9,10 @@ import java.util.Map;
 
 public interface SpuService {
 
-    /***
-     * 查询所有
-     * @return
+    /**
+     * @description: //TODO 查询所有
+     * @param: []
+     * @return: java.util.List<com.changgou.goods.pojo.Spu>
      */
     List<Spu> findAll();
 
@@ -29,9 +30,10 @@ public interface SpuService {
      */
     Goods findGoodsById(String id);
 
-    /***
-     * 新增
-     * @param goods
+    /**
+     * @description: //TODO 新增
+     * @param: [goods]
+     * @return: void
      */
     void add(Goods goods);
 
@@ -42,27 +44,24 @@ public interface SpuService {
      */
     void update(Goods goods);
 
-    /***
-     * 多条件搜索
-     * @param searchMap
-     * @return
+    /**
+     * @description: //TODO 多条件搜索
+     * @param: [searchMap]
+     * @return: java.util.List<com.changgou.goods.pojo.Spu>
      */
     List<Spu> findList(Map<String, Object> searchMap);
 
-    /***
-     * 分页查询
-     * @param page
-     * @param size
-     * @return
+    /**
+     * @description: //TODO 分页查询
+     * @param: [page, size]
+     * @return: com.github.pagehelper.Page<com.changgou.goods.pojo.Spu>
      */
     Page<Spu> findPage(int page, int size);
 
-    /***
-     * 多条件分页查询
-     * @param searchMap
-     * @param page
-     * @param size
-     * @return
+    /**
+     * @description: //TODO 多条件分页查询
+     * @param: [searchMap, page, size]
+     * @return: com.github.pagehelper.Page<com.changgou.goods.pojo.Spu>
      */
     Page<Spu> findPage(Map<String, Object> searchMap, int page, int size);
 
@@ -73,14 +72,12 @@ public interface SpuService {
      */
     void audit(String id);
 
-
     /**
      * @description: //TODO 商品下架
      * @param: [id]
      * @return: void
      */
     void pull(String id);
-
 
     /**
      * @description: //TODO 商品上架
@@ -89,14 +86,12 @@ public interface SpuService {
      */
     void put(String id);
 
-
     /**
-     * @description: //TODO 逻辑删除商品
+     * @description: //TODO 商品逻辑删除
      * @param: [id]
      * @return: void
      */
     void logicDel(String id);
-
 
     /**
      * @description: //TODO 恢复逻辑删除的商品
@@ -104,4 +99,11 @@ public interface SpuService {
      * @return: void
      */
     void restore(String id);
+
+    /**
+     * @description: //TODO 商品物理删除
+     * @param: [id]
+     * @return: void
+     */
+    void physicalDel(String id);
 }

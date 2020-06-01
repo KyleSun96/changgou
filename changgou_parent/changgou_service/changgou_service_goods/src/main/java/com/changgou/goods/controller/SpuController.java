@@ -77,10 +77,10 @@ public class SpuController {
     }
 
 
-    /***
-     * 多条件搜索品牌数据
-     * @param searchMap
-     * @return
+    /**
+     * @description: //TODO 多条件搜索品牌数据
+     * @param: [searchMap]
+     * @return: com.changgou.entity.Result
      */
     @GetMapping(value = "/search")
     public Result findList(@RequestParam Map searchMap) {
@@ -89,12 +89,10 @@ public class SpuController {
     }
 
 
-    /***
-     * 分页搜索实现
-     * @param searchMap
-     * @param page
-     * @param size
-     * @return
+    /**
+     * @description: //TODO 分页搜索实现
+     * @param: [searchMap, page, size]
+     * @return: com.changgou.entity.Result
      */
     @GetMapping(value = "/search/{page}/{size}")
     public Result findPage(@RequestParam Map searchMap, @PathVariable int page, @PathVariable int size) {
@@ -141,14 +139,14 @@ public class SpuController {
 
 
     /**
-     * @description: //TODO 根据ID逻辑删除商品
+     * @description: //TODO 商品逻辑删除
      * @param: [id]
      * @return: com.changgou.entity.Result
      */
     @PutMapping(value = "/logicDel/{id}")
     public Result logicDel(@PathVariable String id) {
         spuService.logicDel(id);
-        return new Result(true, StatusCode.OK, "删除成功");
+        return new Result(true, StatusCode.OK, "商品删除至回收站");
     }
 
 
@@ -161,6 +159,18 @@ public class SpuController {
     public Result restore(@PathVariable String id) {
         spuService.restore(id);
         return new Result(true, StatusCode.OK, "商品恢复成功");
+    }
+
+
+    /**
+     * @description: //TODO 商品物理删除
+     * @param: [id]
+     * @return: com.changgou.entity.Result
+     */
+    @DeleteMapping("/physicalDel/{id}")
+    public Result physicalDel(@PathVariable String id) {
+        spuService.physicalDel(id);
+        return new Result(true, StatusCode.OK, "商品已从数据库移除");
     }
 
 }

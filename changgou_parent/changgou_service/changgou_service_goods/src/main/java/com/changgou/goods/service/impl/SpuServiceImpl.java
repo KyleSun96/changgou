@@ -451,7 +451,7 @@ public class SpuServiceImpl implements SpuService {
 
 
     /**
-     * @description: //TODO 逻辑删除商品
+     * @description: //TODO 商品逻辑删除
      * @param: [id]
      * @return: void
      */
@@ -485,6 +485,23 @@ public class SpuServiceImpl implements SpuService {
         spu.setIsDelete("0");
 
         spuMapper.updateByPrimaryKeySelective(spu);
+    }
+
+
+    /**
+     * @description: //TODO 商品物理删除
+     * @param: [id]
+     * @return: void
+     */
+    @Override
+    public void physicalDel(String id) {
+        // 查询spu
+        Spu spu = spuMapper.selectByPrimaryKey(id);
+        // 已删除的商品才能执行物理删除
+        if (!spu.getIsDelete().equals("1")) {
+            throw new RuntimeException("未删除的商品无法从数据库中移除！");
+        }
+        spuMapper.deleteByPrimaryKey(id);
     }
 
 }
