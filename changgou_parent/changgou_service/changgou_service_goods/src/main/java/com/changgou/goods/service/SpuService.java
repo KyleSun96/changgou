@@ -80,4 +80,11 @@ public interface SpuService {
     void audit(String id);
 
 
+    /**
+     * @description: //TODO 商品下架
+     * @param: [id]
+     * @return: void
+     */
+    void pull(String id);
+
 }

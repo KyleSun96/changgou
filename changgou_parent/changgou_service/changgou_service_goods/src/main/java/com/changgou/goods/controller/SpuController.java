@@ -63,8 +63,14 @@ public class SpuController {
      * @param: [spu, id]
      * @return: com.changgou.entity.Result
      */
-    @PutMapping
-    public Result update(@RequestBody Goods goods) {
+    @PutMapping("/{id}")
+    public Result update(@RequestBody Goods goods, @PathVariable String id) {
+
+        if (goods == null) {
+            return new Result(false, StatusCode.ERROR, "修改失败，未添加需要修改的商品");
+        }
+
+        goods.getSpu().setId(id);
         spuService.update(goods);
         return new Result(true, StatusCode.OK, "修改成功");
     }
@@ -117,6 +123,19 @@ public class SpuController {
     @PutMapping("/audit/{id}")
     public Result audit(@PathVariable String id) {
         spuService.audit(id);
-        return new Result(true, StatusCode.OK, "审核成功");
+        return new Result(true, StatusCode.OK, "商品审核成功");
     }
+
+
+    /**
+     * @description: //TODO 商品下架
+     * @param: [id]
+     * @return: com.changgou.entity.Result
+     */
+    @PutMapping("/pull/{id}")
+    public Result pull(@PathVariable String id) {
+        spuService.pull(id);
+        return new Result(true, StatusCode.OK, "商品下架成功");
+    }
+
 }
