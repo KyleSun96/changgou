@@ -77,18 +77,6 @@ public class SpuController {
     }
 
 
-    /**
-     * @description: //TODO 根据ID逻辑删除商品
-     * @param: [id]
-     * @return: com.changgou.entity.Result
-     */
-    @DeleteMapping(value = "/{id}")
-    public Result delete(@PathVariable String id) {
-        spuService.delete(id);
-        return new Result(true, StatusCode.OK, "删除成功");
-    }
-
-
     /***
      * 多条件搜索品牌数据
      * @param searchMap
@@ -149,6 +137,18 @@ public class SpuController {
     public Result put(@PathVariable String id) {
         spuService.put(id);
         return new Result(true, StatusCode.OK, "商品上架成功");
+    }
+
+
+    /**
+     * @description: //TODO 根据ID逻辑删除商品
+     * @param: [id]
+     * @return: com.changgou.entity.Result
+     */
+    @PutMapping(value = "/logicDel/{id}")
+    public Result logicDel(@PathVariable String id) {
+        spuService.logicDel(id);
+        return new Result(true, StatusCode.OK, "删除成功");
     }
 
 

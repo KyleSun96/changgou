@@ -228,24 +228,6 @@ public class SpuServiceImpl implements SpuService {
 
     }
 
-    /**
-     * @description: //TODO 逻辑删除商品
-     * @param: [id]
-     * @return: void
-     */
-    @Override
-    public void delete(String id) {
-
-        // 查询spu
-        Spu spu = spuMapper.selectByPrimaryKey(id);
-        // 已下架的商品才能执行逻辑删除
-        if (!spu.getIsMarketable().equals("0")) {
-            throw new RuntimeException("商品必须先下架后再删除！");
-        }
-        spu.setIsDelete("1");
-
-        spuMapper.updateByPrimaryKeySelective(spu);
-    }
 
     /**
      * 条件查询
@@ -463,6 +445,25 @@ public class SpuServiceImpl implements SpuService {
         }
         // 通过审核的商品，修改为上架状态(1)
         spu.setIsMarketable("1");
+
+        spuMapper.updateByPrimaryKeySelective(spu);
+    }
+
+
+    /**
+     * @description: //TODO 逻辑删除商品
+     * @param: [id]
+     * @return: void
+     */
+    @Override
+    public void logicDel(String id) {
+        // 查询spu
+        Spu spu = spuMapper.selectByPrimaryKey(id);
+        // 已下架的商品才能执行逻辑删除
+        if (!spu.getIsMarketable().equals("0")) {
+            throw new RuntimeException("商品必须先下架后再删除！");
+        }
+        spu.setIsDelete("1");
 
         spuMapper.updateByPrimaryKeySelective(spu);
     }

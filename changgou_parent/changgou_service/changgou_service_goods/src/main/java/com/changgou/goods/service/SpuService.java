@@ -42,13 +42,6 @@ public interface SpuService {
      */
     void update(Goods goods);
 
-    /**
-     * @description: //TODO 逻辑删除商品
-     * @param: [id]
-     * @return: void
-     */
-    void delete(String id);
-
     /***
      * 多条件搜索
      * @param searchMap
@@ -95,6 +88,14 @@ public interface SpuService {
      * @return: void
      */
     void put(String id);
+
+
+    /**
+     * @description: //TODO 逻辑删除商品
+     * @param: [id]
+     * @return: void
+     */
+    void logicDel(String id);
 
 
     /**
