@@ -22,10 +22,11 @@ public class SpuController {
     @Autowired
     private SpuService spuService;
 
+
     /**
-     * 查询全部数据
-     *
-     * @return
+     * @description: //TODO 查询全部数据
+     * @param: []
+     * @return: com.changgou.entity.Result
      */
     @GetMapping
     public Result findAll() {
@@ -46,10 +47,10 @@ public class SpuController {
     }
 
 
-    /***
-     * 新增商品
-     * @param goods
-     * @return
+    /**
+     * @description: //TODO 新增商品
+     * @param: [goods]
+     * @return: com.changgou.entity.Result
      */
     @PostMapping
     public Result add(@RequestBody Goods goods) {
@@ -76,10 +77,10 @@ public class SpuController {
     }
 
 
-    /***
-     * 根据ID删除品牌数据
-     * @param id
-     * @return
+    /**
+     * @description: //TODO 根据ID逻辑删除商品
+     * @param: [id]
+     * @return: com.changgou.entity.Result
      */
     @DeleteMapping(value = "/{id}")
     public Result delete(@PathVariable String id) {
@@ -148,6 +149,18 @@ public class SpuController {
     public Result put(@PathVariable String id) {
         spuService.put(id);
         return new Result(true, StatusCode.OK, "商品上架成功");
+    }
+
+
+    /**
+     * @description: //TODO 恢复逻辑删除的商品
+     * @param: [id]
+     * @return: com.changgou.entity.Result
+     */
+    @PutMapping("/restore/{id}")
+    public Result restore(@PathVariable String id) {
+        spuService.restore(id);
+        return new Result(true, StatusCode.OK, "商品恢复成功");
     }
 
 }

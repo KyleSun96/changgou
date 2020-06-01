@@ -182,6 +182,7 @@ public class SpuServiceImpl implements SpuService {
 
     }
 
+
     /**
      * @description: //TODO 设置品牌与分类的关联关系
      * @param: [goods]
@@ -200,6 +201,7 @@ public class SpuServiceImpl implements SpuService {
             categoryBrandMapper.insert(categoryBrand);
         }
     }
+
 
     /**
      * @description: //TODO 修改商品信息
@@ -227,13 +229,22 @@ public class SpuServiceImpl implements SpuService {
     }
 
     /**
-     * 删除
-     *
-     * @param id
+     * @description: //TODO 逻辑删除商品
+     * @param: [id]
+     * @return: void
      */
     @Override
     public void delete(String id) {
-        spuMapper.deleteByPrimaryKey(id);
+
+        // 查询spu
+        Spu spu = spuMapper.selectByPrimaryKey(id);
+        // 已下架的商品才能执行逻辑删除
+        if (!spu.getIsMarketable().equals("0")) {
+            throw new RuntimeException("商品必须先下架后再删除！");
+        }
+        spu.setIsDelete("1");
+
+        spuMapper.updateByPrimaryKeySelective(spu);
     }
 
     /**
@@ -452,6 +463,25 @@ public class SpuServiceImpl implements SpuService {
         }
         // 通过审核的商品，修改为上架状态(1)
         spu.setIsMarketable("1");
+
+        spuMapper.updateByPrimaryKeySelective(spu);
+    }
+
+
+    /**
+     * @description: //TODO 恢复逻辑删除的商品
+     * @param: [id]
+     * @return: void
+     */
+    @Override
+    public void restore(String id) {
+        // 查询spu
+        Spu spu = spuMapper.selectByPrimaryKey(id);
+        // 已删除的商品才能执行恢复
+        if (!spu.getIsDelete().equals("1")) {
+            throw new RuntimeException("未删除商品不需要恢复！");
+        }
+        spu.setIsDelete("0");
 
         spuMapper.updateByPrimaryKeySelective(spu);
     }

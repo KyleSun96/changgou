@@ -42,9 +42,10 @@ public interface SpuService {
      */
     void update(Goods goods);
 
-    /***
-     * 删除
-     * @param id
+    /**
+     * @description: //TODO 逻辑删除商品
+     * @param: [id]
+     * @return: void
      */
     void delete(String id);
 
@@ -95,4 +96,11 @@ public interface SpuService {
      */
     void put(String id);
 
+
+    /**
+     * @description: //TODO 恢复逻辑删除的商品
+     * @param: [id]
+     * @return: void
+     */
+    void restore(String id);
 }
