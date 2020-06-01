@@ -49,16 +49,40 @@ public class SpuServiceImpl implements SpuService {
     }
 
     /**
-     * 根据ID查询
-     *
-     * @param id
-     * @return
+     * @description: //TODO 根据ID查询Spu
+     * @param: [id]
+     * @return: com.changgou.goods.pojo.Spu
      */
     @Override
     public Spu findById(String id) {
         return spuMapper.selectByPrimaryKey(id);
     }
 
+    /**
+     * @description: //TODO 根据ID查询商品
+     * @param: [id]
+     * @return: com.changgou.goods.pojo.Goods
+     */
+    @Override
+    public Goods findGoodsById(String id) {
+
+        // 1. 查询spu
+        Spu spu = spuMapper.selectByPrimaryKey(id);
+
+        // 2. 查询sku
+        // 声明当前example操作的实体类
+        Example example = new Example(Sku.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("spuId", id);
+        List<Sku> skuList = skuMapper.selectByExample(example);
+
+        // 3. 封装到goods
+        Goods goods = new Goods();
+        goods.setSpu(spu);
+        goods.setSkuList(skuList);
+
+        return goods;
+    }
 
     /**
      * @description: //TODO 新增商品

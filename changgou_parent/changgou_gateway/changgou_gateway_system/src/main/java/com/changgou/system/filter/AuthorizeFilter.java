@@ -19,7 +19,7 @@ import reactor.core.publisher.Mono;
  * @Description:
  * @Author: KyleSun
  **/
-@Component
+//@Component
 public class AuthorizeFilter implements GlobalFilter, Ordered {
 
     @Override

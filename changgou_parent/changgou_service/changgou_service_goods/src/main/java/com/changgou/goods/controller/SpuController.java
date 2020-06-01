@@ -33,15 +33,16 @@ public class SpuController {
         return new Result(true, StatusCode.OK, "查询成功", spuList);
     }
 
-    /***
-     * 根据ID查询数据
-     * @param id
-     * @return
+
+    /**
+     * @description: //TODO 根据ID查询商品
+     * @param: [id]
+     * @return: com.changgou.entity.Result
      */
     @GetMapping("/{id}")
     public Result findById(@PathVariable String id) {
-        Spu spu = spuService.findById(id);
-        return new Result(true, StatusCode.OK, "查询成功", spu);
+        Goods goods = spuService.findGoodsById(id);
+        return new Result(true, StatusCode.OK, "查询成功", goods);
     }
 
 
@@ -81,6 +82,7 @@ public class SpuController {
         spuService.delete(id);
         return new Result(true, StatusCode.OK, "删除成功");
     }
+
 
     /***
      * 多条件搜索品牌数据

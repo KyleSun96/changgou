@@ -16,12 +16,18 @@ public interface SpuService {
     List<Spu> findAll();
 
     /**
-     * 根据ID查询
-     *
-     * @param id
-     * @return
+     * @description: //TODO 根据ID查询Spu
+     * @param: [id]
+     * @return: com.changgou.goods.pojo.Spu
      */
     Spu findById(String id);
+
+    /**
+     * @description: //TODO 根据ID查询商品
+     * @param: [id]
+     * @return: com.changgou.goods.pojo.Goods
+     */
+    Goods findGoodsById(String id);
 
     /***
      * 新增
