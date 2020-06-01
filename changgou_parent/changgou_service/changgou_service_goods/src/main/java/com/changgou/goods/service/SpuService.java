@@ -35,11 +35,12 @@ public interface SpuService {
      */
     void add(Goods goods);
 
-    /***
-     * 修改
-     * @param spu
+    /**
+     * @description: //TODO 修改商品信息
+     * @param: [goods]
+     * @return: void
      */
-    void update(Spu spu);
+    void update(Goods goods);
 
     /***
      * 删除

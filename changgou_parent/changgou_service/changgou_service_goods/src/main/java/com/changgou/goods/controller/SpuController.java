@@ -58,16 +58,14 @@ public class SpuController {
     }
 
 
-    /***
-     * 修改数据
-     * @param spu
-     * @param id
-     * @return
+    /**
+     * @description: //TODO 修改商品信息
+     * @param: [spu, id]
+     * @return: com.changgou.entity.Result
      */
     @PutMapping(value = "/{id}")
-    public Result update(@RequestBody Spu spu, @PathVariable String id) {
-        spu.setId(id);
-        spuService.update(spu);
+    public Result update(@RequestBody Goods goods) {
+        spuService.update(goods);
         return new Result(true, StatusCode.OK, "修改成功");
     }
 
