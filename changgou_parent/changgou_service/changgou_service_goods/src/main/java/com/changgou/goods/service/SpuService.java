@@ -87,4 +87,12 @@ public interface SpuService {
      */
     void pull(String id);
 
+
+    /**
+     * @description: //TODO 商品上架
+     * @param: [id]
+     * @return: void
+     */
+    void put(String id);
+
 }

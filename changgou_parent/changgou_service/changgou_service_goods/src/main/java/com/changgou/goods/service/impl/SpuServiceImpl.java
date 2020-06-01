@@ -207,6 +207,7 @@ public class SpuServiceImpl implements SpuService {
      * @return: void
      */
     @Override
+    @Transactional
     public void update(Goods goods) {
 
         // 修改spu
@@ -424,8 +425,33 @@ public class SpuServiceImpl implements SpuService {
         if ("1".equals(spu.getIsDelete())) {
             throw new RuntimeException("当前商品处于删除状态");
         }
-        // 不处于删除状态的商品，修改上架状态为已下架 (0)
+        // 不处于删除状态的商品，修改为下架状态 (0)
         spu.setIsMarketable("0");
+
+        spuMapper.updateByPrimaryKeySelective(spu);
+    }
+
+
+    /**
+     * @description: //TODO 商品上架
+     * @param: [id]
+     * @return: void
+     */
+    @Override
+    public void put(String id) {
+        // 查询spu
+        Spu spu = spuMapper.selectByPrimaryKey(id);
+
+        if (spu == null) {
+            throw new RuntimeException("当前商品不存在");
+        }
+
+        // 判断当前spu是否审核,未审核状态不可上架
+        if ("0".equals(spu.getStatus())) {
+            throw new RuntimeException("未通过审核的商品不能上架！");
+        }
+        // 通过审核的商品，修改为上架状态(1)
+        spu.setIsMarketable("1");
 
         spuMapper.updateByPrimaryKeySelective(spu);
     }

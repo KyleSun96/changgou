@@ -138,4 +138,16 @@ public class SpuController {
         return new Result(true, StatusCode.OK, "商品下架成功");
     }
 
+
+    /**
+     * @description: //TODO 商品上架
+     * @param: [id]
+     * @return: com.changgou.entity.Result
+     */
+    @PutMapping("/put/{id}")
+    public Result put(@PathVariable String id) {
+        spuService.put(id);
+        return new Result(true, StatusCode.OK, "商品上架成功");
+    }
+
 }
