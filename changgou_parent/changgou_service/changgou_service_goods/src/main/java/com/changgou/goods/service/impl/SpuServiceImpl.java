@@ -275,6 +275,7 @@ public class SpuServiceImpl implements SpuService {
         return (Page<Spu>) spuMapper.selectByExample(example);
     }
 
+
     /**
      * 构建查询对象
      *
@@ -377,6 +378,31 @@ public class SpuServiceImpl implements SpuService {
 
         }
         return example;
+    }
+
+    /**
+     * @description: //TODO 商品审核
+     * @param: [id]
+     * @return: void
+     */
+    @Override
+    public void audit(String id) {
+        // 查询spu
+        Spu spu = spuMapper.selectByPrimaryKey(id);
+
+        if (spu == null) {
+            throw new RuntimeException("当前商品不存在");
+        }
+
+        // 判断当前spu是否处于删除,删除状态不可审核
+        if ("1".equals(spu.getIsDelete())) {
+            throw new RuntimeException("当前商品处于删除状态");
+        }
+        // 不处于删除状态的商品，修改审核状态为1，并且自动上架
+        spu.setStatus("1");
+        spu.setIsMarketable("1");
+
+        spuMapper.updateByPrimaryKeySelective(spu);
     }
 
 }

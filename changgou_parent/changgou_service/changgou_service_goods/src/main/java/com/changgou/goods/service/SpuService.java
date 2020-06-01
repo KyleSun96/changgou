@@ -72,5 +72,12 @@ public interface SpuService {
      */
     Page<Spu> findPage(Map<String, Object> searchMap, int page, int size);
 
+    /**
+     * @description: //TODO 商品审核
+     * @param: [id]
+     * @return: void
+     */
+    void audit(String id);
+
 
 }

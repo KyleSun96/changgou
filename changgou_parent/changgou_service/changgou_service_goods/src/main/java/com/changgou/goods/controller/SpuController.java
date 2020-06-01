@@ -63,7 +63,7 @@ public class SpuController {
      * @param: [spu, id]
      * @return: com.changgou.entity.Result
      */
-    @PutMapping(value = "/{id}")
+    @PutMapping
     public Result update(@RequestBody Goods goods) {
         spuService.update(goods);
         return new Result(true, StatusCode.OK, "修改成功");
@@ -109,4 +109,14 @@ public class SpuController {
     }
 
 
+    /**
+     * @description: //TODO 商品审核
+     * @param: [id]
+     * @return: com.changgou.entity.Result
+     */
+    @PutMapping("/audit/{id}")
+    public Result audit(@PathVariable String id) {
+        spuService.audit(id);
+        return new Result(true, StatusCode.OK, "审核成功");
+    }
 }
