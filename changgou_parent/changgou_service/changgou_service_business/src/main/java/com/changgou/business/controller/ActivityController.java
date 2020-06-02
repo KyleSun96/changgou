@@ -1,11 +1,17 @@
 package com.changgou.business.controller;
+
 import com.changgou.business.service.ActivityService;
 import com.changgou.business.pojo.Activity;
+import com.changgou.entity.PageResult;
+import com.changgou.entity.Result;
+import com.changgou.entity.StatusCode;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Map;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/activity")
@@ -17,12 +23,13 @@ public class ActivityController {
 
     /**
      * 查询全部数据
+     *
      * @return
      */
     @GetMapping
-    public Result findAll(){
+    public Result findAll() {
         List<Activity> activityList = activityService.findAll();
-        return new Result(true, StatusCode.OK,"查询成功",activityList) ;
+        return new Result(true, StatusCode.OK, "查询成功", activityList);
     }
 
     /***
@@ -31,9 +38,9 @@ public class ActivityController {
      * @return
      */
     @GetMapping("/{id}")
-    public Result findById(@PathVariable Integer id){
+    public Result findById(@PathVariable Integer id) {
         Activity activity = activityService.findById(id);
-        return new Result(true,StatusCode.OK,"查询成功",activity);
+        return new Result(true, StatusCode.OK, "查询成功", activity);
     }
 
 
@@ -43,9 +50,9 @@ public class ActivityController {
      * @return
      */
     @PostMapping
-    public Result add(@RequestBody Activity activity){
+    public Result add(@RequestBody Activity activity) {
         activityService.add(activity);
-        return new Result(true,StatusCode.OK,"添加成功");
+        return new Result(true, StatusCode.OK, "添加成功");
     }
 
 
@@ -55,11 +62,11 @@ public class ActivityController {
      * @param id
      * @return
      */
-    @PutMapping(value="/{id}")
-    public Result update(@RequestBody Activity activity,@PathVariable Integer id){
+    @PutMapping(value = "/{id}")
+    public Result update(@RequestBody Activity activity, @PathVariable Integer id) {
         activity.setId(id);
         activityService.update(activity);
-        return new Result(true,StatusCode.OK,"修改成功");
+        return new Result(true, StatusCode.OK, "修改成功");
     }
 
 
@@ -68,10 +75,10 @@ public class ActivityController {
      * @param id
      * @return
      */
-    @DeleteMapping(value = "/{id}" )
-    public Result delete(@PathVariable Integer id){
+    @DeleteMapping(value = "/{id}")
+    public Result delete(@PathVariable Integer id) {
         activityService.delete(id);
-        return new Result(true,StatusCode.OK,"删除成功");
+        return new Result(true, StatusCode.OK, "删除成功");
     }
 
     /***
@@ -79,10 +86,10 @@ public class ActivityController {
      * @param searchMap
      * @return
      */
-    @GetMapping(value = "/search" )
-    public Result findList(@RequestParam Map searchMap){
+    @GetMapping(value = "/search")
+    public Result findList(@RequestParam Map searchMap) {
         List<Activity> list = activityService.findList(searchMap);
-        return new Result(true,StatusCode.OK,"查询成功",list);
+        return new Result(true, StatusCode.OK, "查询成功", list);
     }
 
 
@@ -93,11 +100,11 @@ public class ActivityController {
      * @param size
      * @return
      */
-    @GetMapping(value = "/search/{page}/{size}" )
-    public Result findPage(@RequestParam Map searchMap, @PathVariable  int page, @PathVariable  int size){
+    @GetMapping(value = "/search/{page}/{size}")
+    public Result findPage(@RequestParam Map searchMap, @PathVariable int page, @PathVariable int size) {
         Page<Activity> pageList = activityService.findPage(searchMap, page, size);
-        PageResult pageResult=new PageResult(pageList.getTotal(),pageList.getResult());
-        return new Result(true,StatusCode.OK,"查询成功",pageResult);
+        PageResult pageResult = new PageResult(pageList.getTotal(), pageList.getResult());
+        return new Result(true, StatusCode.OK, "查询成功", pageResult);
     }
 
 
