@@ -124,7 +124,6 @@ public class SkuController {
         }
         searchMap.put("status", 1);
         return skuService.findList(searchMap);
-
     }
 
 

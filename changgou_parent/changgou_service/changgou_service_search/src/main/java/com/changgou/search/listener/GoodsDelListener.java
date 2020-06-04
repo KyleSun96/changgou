@@ -8,24 +8,23 @@ import org.springframework.stereotype.Component;
 
 /**
  * @Program: ChangGou
- * @ClassName: GoodsUpListener
- * @Description: 商品上架rabbitMQ监听类
+ * @ClassName: GoodsDelListener
+ * @Description: 商品下架rabbitMQ监听类
  * @Author: KyleSun
  **/
 @Component
-public class GoodsUpListener {
+public class GoodsDelListener {
 
     @Autowired
     private ESManagerService esManagerService;
 
     // 指定需要操作的队列：queues =
-    @RabbitListener(queues = RabbitMQConfig.SEARCH_ADD_QUEUE)
+    @RabbitListener(queues = RabbitMQConfig.SEARCH_DEL_QUEUE)
     public void receiveMessage(String spuId) {
 
-        System.out.println("接收到的消息为: " + spuId);
+        System.out.println("删除索引库监听类,接收到的spuId:  " + spuId);
 
-        // 查询skuList,并导入到索引库
-        esManagerService.importDataBySpuId(spuId);
+        // 调用业务层完成索引库数据删除
+        esManagerService.delDataBySpuId(spuId);
     }
 }
-

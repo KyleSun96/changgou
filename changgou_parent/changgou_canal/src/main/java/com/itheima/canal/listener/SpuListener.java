@@ -28,7 +28,7 @@ public class SpuListener {
      * @param: [eventType, rowData] 【对数据库操作的事件类型，对数据库操作的具体数据】
      * @return: void
      */
-    @ListenPoint(schema = "changgou_goods", table = {"tb_spu"}, eventType = CanalEntry.EventType.UPDATE)
+    @ListenPoint(schema = "changgou_goods", table = {"tb_spu"})
     public void spuUp(CanalEntry.EventType eventType, CanalEntry.RowData rowData) {
 
         System.err.println("tb_spu表数据发生变化");
@@ -39,14 +39,24 @@ public class SpuListener {
             oldData.put(column.getName(), column.getValue());
         }
 
+
         // 获取修改后数据，并转换为 map (λ表达式写法)
         Map<String, String> newData = new HashMap<>();
         rowData.getAfterColumnsList().forEach(column -> newData.put(column.getName(), column.getValue()));
 
-        // is_marketable --> 由0改为1表示最新上架的商品
+
+        // 监控最新上架的商品    0 -> 1
         if ("0".equals(oldData.get("is_marketable")) && "1".equals(newData.get("is_marketable"))) {
             // 将商品的 spuId 发送到 mq
             rabbitTemplate.convertAndSend(RabbitMQConfig.GOODS_UP_EXCHANGE, "", newData.get("id"));
         }
+
+
+        // 监控最新下架的商品    1 -> 0
+        if ("1".equals(oldData.get("is_marketable")) && "0".equals(newData.get("is_marketable"))) {
+            // 将商品的 spuId 发送到 mq
+            rabbitTemplate.convertAndSend(RabbitMQConfig.GOODS_DOWN_EXCHANGE, "", newData.get("id"));
+        }
+
     }
 }

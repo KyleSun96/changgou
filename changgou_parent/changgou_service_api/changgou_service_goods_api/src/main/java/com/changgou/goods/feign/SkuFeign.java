@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @Program: ChangGou
- * @InterfaceName: SkuFegin
+ * @InterfaceName: SkuFeign
  * @Description:
  **/
 @FeignClient(name = "goods")
@@ -18,4 +18,5 @@ public interface SkuFeign {
 
     @GetMapping("/sku/spu/{spuId}")
     public List<Sku> findSkuListBySpuId(@PathVariable("spuId") String spuId);
+
 }
