@@ -115,7 +115,7 @@ public class SkuController {
      * @return: com.changgou.entity.Result
      */
     @GetMapping("/spu/{spuId}")
-    public Result findSkuListBySpuId(@PathVariable("spuId") String spuId) {
+    public List<Sku> findSkuListBySpuId(@PathVariable("spuId") String spuId) {
 
         Map<String, Object> searchMap = new HashMap<>();
 
@@ -123,8 +123,8 @@ public class SkuController {
             searchMap.put("spuId", spuId);
         }
         searchMap.put("status", 1);
-        List<Sku> skuList = skuService.findList(searchMap);
-        return new Result(true, StatusCode.OK, "查询成功", skuList);
+        return skuService.findList(searchMap);
+
     }
 
 
