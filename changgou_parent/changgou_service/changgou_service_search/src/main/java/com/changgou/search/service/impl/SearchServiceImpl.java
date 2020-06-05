@@ -111,22 +111,23 @@ public class SearchServiceImpl implements SearchService {
             // 5.7.2 设置分页 withPageable【当前页（从0开始），每页显示多少条】
             nativeSearchQueryBuilder.withPageable(PageRequest.of(Integer.parseInt(pageNum) - 1, Integer.parseInt(pageSize)));
 
-            // 按照相关字段进行排序查询
-            // 1.当前域 2.当前的排序操作(升序ASC,降序DESC)
+            // 5.8 按照相关字段进行排序查询
+            //  1.当前进行排序的域 2.当前的排序规则(升序ASC，降序DESC)
             if (StringUtils.isNotEmpty(searchMap.get("sortField")) && StringUtils.isNotEmpty(searchMap.get("sortRule"))) {
                 if ("ASC".equals(searchMap.get("sortRule"))) {
-                    //升序
+                    // 升序
                     nativeSearchQueryBuilder.withSort(SortBuilders.fieldSort((searchMap.get("sortField"))).order(SortOrder.ASC));
                 } else {
-                    //降序
+                    // 降序
                     nativeSearchQueryBuilder.withSort(SortBuilders.fieldSort((searchMap.get("sortField"))).order(SortOrder.DESC));
                 }
             }
 
-            // 设置高亮域以及高亮的样式
-            HighlightBuilder.Field field = new HighlightBuilder.Field("name")//高亮域
-                    .preTags("<span style='color:red'>")//高亮样式的前缀
-                    .postTags("</span>");//高亮样式的后缀
+            // 5.9.1 设置高亮域以及高亮的样式
+            // 构建高亮域的对象
+            HighlightBuilder.Field field = new HighlightBuilder.Field("name")// 高亮域
+                    .preTags("<span style='color:red'>")// 高亮样式的前缀
+                    .postTags("</span>");// 高亮样式的后缀
             nativeSearchQueryBuilder.withHighlightFields(field);
 
             /*
@@ -151,9 +152,10 @@ public class SearchServiceImpl implements SearchService {
                             // 10.1 hit对象 --> json串 --> skuInfo对象
                             SkuInfo skuInfo = JSON.parseObject(hit.getSourceAsString(), SkuInfo.class);
 
+                            // 5.9.2 替换高亮数据
                             Map<String, HighlightField> highlightFields = hit.getHighlightFields();
                             if (highlightFields != null && highlightFields.size() > 0) {
-                                // 替换数据
+                                // 获取name高亮域中的第一个内容
                                 skuInfo.setName(highlightFields.get("name").getFragments()[0].toString());
                             }
 
