@@ -37,7 +37,7 @@
                             <li class="f-item"><span>关注畅购</span></li>
                             <li class="f-item"><span><a href="cooperation.html" target="_blank">合作招商</a></span></li>
                             <li class="f-item"><span><a href="shoplogin.html" target="_blank">商家后台</a></span></li>
-                            <li class="f-item"><span>网站导航</li>
+                            <li class="f-item"><span>网站导航</span></li>
                         </ul>
                     </div>
 
@@ -52,13 +52,16 @@
                     <div class="yui3-u Left logoArea">
                         <a class="logo-bd" title="畅购" href="index.html" target="_blank"></a>
                     </div>
+                    <!-- 页面搜索栏 -->
                     <div class="yui3-u Rit searchArea">
                         <div class="search">
-                            <form action="" class="sui-form form-inline">
+                            <form th:action="@{/search/list}" class="sui-form form-inline">
                                 <!--searchAutoComplete-->
                                 <div class="input-append">
-                                    <input type="text" id="autocomplete" class="input-error input-xxlarge"/>
-                                    <button class="sui-btn btn-xlarge btn-danger" type="button">搜索</button>
+                                    <input th:type="text" id="autocomplete" name="keywords"
+                                           th:value="${searchMap.keywords}"
+                                           class="input-error input-xxlarge"/>
+                                    <button class="sui-btn btn-xlarge btn-danger" th:type="submit">搜索</button>
                                 </div>
                             </form>
                         </div>
