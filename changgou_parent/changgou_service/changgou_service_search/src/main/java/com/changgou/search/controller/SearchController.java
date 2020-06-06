@@ -2,15 +2,17 @@ package com.changgou.search.controller;
 
 import com.changgou.search.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
 import java.util.Set;
 
-@RestController
+@Controller
 @RequestMapping("/search")
 public class SearchController {
 
@@ -19,11 +21,33 @@ public class SearchController {
 
 
     /**
+     * @description: //TODO 搜索结果页面的跳转
+     * @param: [searchMap, model]【前端传递过来的查询条件，跳转去search页面所携带的查询结果数据】
+     * @return: java.lang.String
+     */
+    @GetMapping("/list")
+    public String list(@RequestParam Map<String, String> searchMap, Model model) {
+
+        // 特殊符号处理
+        this.handleSearchMap(searchMap);
+
+        // 获取查询结果
+        Map resultMap = this.search(searchMap);
+
+        // 跳转页面时所需携带的数据
+        model.addAttribute("result", resultMap);
+        model.addAttribute("searchMap", searchMap);
+
+        return "search";
+    }
+
+    /**
      * @description: //TODO 商品搜索
      * @param: [searchMap]
      * @return: java.util.Map
      */
     @GetMapping
+    @ResponseBody
     public Map search(@RequestParam Map<String, String> searchMap) {
         /*
             特殊符号处理
