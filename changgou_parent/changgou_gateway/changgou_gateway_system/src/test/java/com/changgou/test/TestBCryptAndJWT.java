@@ -11,11 +11,11 @@ import java.util.Date;
 
 /**
  * @Program: ChangGou
- * @ClassName: TestBCrypt
+ * @ClassName: TestBCryptAndJWT
  * @Description: 测试
  * @Author: KyleSun
  **/
-public class TestBCrypt {
+public class TestBCryptAndJWT {
 
     /**
      * @description: //TODO 测试BCrypt密码加密
