@@ -624,7 +624,7 @@
                 <div class="value logos">
                     <ul class="logo-list">
                         <li th:each="brand,brandStat:${result.brandList}">
-                            <a th:text="${brand}"></a>
+                            <a th:text="${brand}" th:href="@{${url}(brand=${brand})}"></a>
                         </li>
                     </ul>
                 </div>
@@ -638,8 +638,8 @@
                 <div class="fl key" th:text="${spec.key}"></div>
                 <div class="fl value">
                     <ul class="type-list">
-                        <li th:each="option,optionStat:${spec.value}">
-                            <a th:text="${option}"></a>
+                        <li th:each="op,opStat:${spec.value}">
+                            <a th:text="${op}" th:href="@{${url}('spec_'+${spec.key}=${op})}"></a>
                         </li>
                     </ul>
                 </div>
@@ -650,22 +650,22 @@
                 <div class="fl value">
                     <ul class="type-list">
                         <li>
-                            <a th:text="0-500元"></a>
+                            <a th:text="0-500元" th:href="@{${url}(price='0-500')}"></a>
                         </li>
                         <li>
-                            <a th:text="500-1000元"></a>
+                            <a th:text="500-1000元" th:href="@{${url}(price='500-1000')}"></a>
                         </li>
                         <li>
-                            <a th:text="1000-1500元"></a>
+                            <a th:text="1000-1500元" th:href="@{${url}(price='1000-1500')}"></a>
                         </li>
                         <li>
-                            <a th:text="1500-2000元"></a>
+                            <a th:text="1500-2000元" th:href="@{${url}(price='1500-2000')}"></a>
                         </li>
                         <li>
-                            <a th:text="2000-3000元"></a>
+                            <a th:text="2000-3000元" th:href="@{${url}(price='2000-3000')}"></a>
                         </li>
                         <li>
-                            <a th:text="3000元以上"></a>
+                            <a th:text="3000元以上" th:href="@{${url}(price='3000')}"></a>
                         </li>
                     </ul>
                 </div>
