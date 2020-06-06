@@ -599,15 +599,15 @@
             <ul class="fl sui-tag">
                 <li class="with-x" th:if="${#maps.containsKey(searchMap,'brand')}">
                     品牌:<span th:text="${searchMap.brand}"></span>
-                    <i>×</i></li>
+                    <a th:href="@{${#strings.replace(url,'&brand='+searchMap.brand,'')}}">×</a></li>
                 <li class="with-x" th:if="${#maps.containsKey(searchMap,'price')}">
                     价格:<span th:text="${searchMap.price}"></span>
-                    <i>×</i></li>
+                    <a th:href="@{${#strings.replace(url,'&price='+searchMap.price,'')}}">×</a></li>
                 <!--规格信息-->
                 <li class="with-x" th:each="sm:${searchMap}" th:if="${#strings.startsWith(sm.key,'spec_')}">
                     <span th:text="${#strings.replace(sm.key,'spec_','')}"></span>:
                     <span th:text="${#strings.replace(sm.value,'%2B','+')}"></span>
-                    <i>×</i></li>
+                    <a th:href="@{${#strings.replace(url,'&'+sm.key+'='+sm.value,'')}}">×</a></li>
             </ul>
             <form class="fl sui-form form-dark">
                 <div class="input-control control-right">
