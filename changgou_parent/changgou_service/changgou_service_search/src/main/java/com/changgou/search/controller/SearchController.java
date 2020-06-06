@@ -21,7 +21,7 @@ public class SearchController {
 
 
     /**
-     * @description: //TODO 搜索结果页面的跳转
+     * @description: //TODO 商品搜索 + 页面跳转
      * @param: [searchMap, model]【前端传递过来的查询条件，跳转去search页面所携带的查询结果数据】
      * @return: java.lang.String
      */
@@ -38,8 +38,27 @@ public class SearchController {
         model.addAttribute("result", resultMap);
         model.addAttribute("searchMap", searchMap);
 
+        // 拼接URL：spliceURL
+        StringBuilder url = new StringBuilder("/search/list");
+        if (searchMap != null && searchMap.size() > 0) {
+            // searchMap含有查询条件时
+            url.append("?");
+            for (String paramKey : searchMap.keySet()) {
+                if (!"sortRule".equals(paramKey) && !"sortField".equals(paramKey) && !"pageNum".equals(paramKey)) {
+                    url.append(paramKey).append("=").append(searchMap.get(paramKey)).append("&");
+                }
+                // http://localhost:9009/search/list?keywords=手机&spec_网络制式=4G&
+                String urlString = url.toString();
+                // 去除路径上的最后一个 &
+                urlString = urlString.substring(0, urlString.length() - 1);
+                model.addAttribute("url", urlString);
+            }
+        } else {
+            model.addAttribute("url", url);
+        }
         return "search";
     }
+
 
     /**
      * @description: //TODO 商品搜索
