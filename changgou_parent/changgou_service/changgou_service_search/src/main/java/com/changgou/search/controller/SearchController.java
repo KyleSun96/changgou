@@ -1,5 +1,7 @@
 package com.changgou.search.controller;
 
+import com.changgou.entity.Page;
+import com.changgou.search.pojo.SkuInfo;
 import com.changgou.search.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,7 +40,19 @@ public class SearchController {
         model.addAttribute("result", resultMap);
         model.addAttribute("searchMap", searchMap);
 
-        // 拼接URL：spliceURL
+        /*
+         * @description: //TODO 封装分页数据并返回
+         * @param: new Page<>() 参数：【总记录数，当前页，页面容量】
+         */
+        Page<SkuInfo> page = new Page<SkuInfo>(
+                Long.parseLong(String.valueOf(resultMap.get("total"))),
+                Integer.parseInt(String.valueOf(resultMap.get("pageNum"))),
+                Page.pageSize
+        );
+        model.addAttribute("page", page);
+
+
+        // 拼接URL
         StringBuilder url = new StringBuilder("/search/list");
         if (searchMap != null && searchMap.size() > 0) {
             // searchMap含有查询条件时
@@ -56,6 +70,7 @@ public class SearchController {
         } else {
             model.addAttribute("url", url);
         }
+
         return "search";
     }
 
