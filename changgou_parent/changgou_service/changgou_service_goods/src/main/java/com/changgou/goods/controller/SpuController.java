@@ -41,9 +41,21 @@ public class SpuController {
      * @return: com.changgou.entity.Result
      */
     @GetMapping("/{id}")
-    public Result findById(@PathVariable String id) {
+    public Result findById(@PathVariable("id") String id) {
         Goods goods = spuService.findGoodsById(id);
         return new Result(true, StatusCode.OK, "查询成功", goods);
+    }
+
+
+    /**
+     * @description: //TODO 根据ID查询spu
+     * @param: [id]
+     * @return: com.changgou.entity.Result
+     */
+    @GetMapping("/findSpuById/{id}")
+    public Result<Spu> findSpuById(@PathVariable("id") String id) {
+        Spu spu = spuService.findById(id);
+        return new Result<>(true, StatusCode.OK, "查询成功", spu);
     }
 
 

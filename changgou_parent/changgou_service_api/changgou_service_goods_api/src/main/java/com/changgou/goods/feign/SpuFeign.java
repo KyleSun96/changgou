@@ -1,23 +1,21 @@
 package com.changgou.goods.feign;
 
 import com.changgou.entity.Result;
-import com.changgou.goods.pojo.Sku;
+import com.changgou.goods.pojo.Spu;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.List;
-
 /**
  * @Program: ChangGou
- * @InterfaceName: SkuFeign
+ * @InterfaceName: SpuFeign
  * @Description:
  * @Author: KyleSun
  **/
 @FeignClient(name = "goods")
-public interface SkuFeign {
+public interface SpuFeign {
 
-    @GetMapping("/sku/spu/{spuId}")
-    public List<Sku> findSkuListBySpuId(@PathVariable("spuId") String spuId);
+    @GetMapping("/spu/findSpuById/{id}")
+    public Result<Spu> findSpuById(@PathVariable("id") String id);
 
 }
