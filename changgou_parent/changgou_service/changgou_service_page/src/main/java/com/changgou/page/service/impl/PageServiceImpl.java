@@ -107,17 +107,19 @@ public class PageServiceImpl implements PageService {
 
         Map<String, Object> resultMap = new HashMap<>();
 
-        //获取spu
+        // 获取spu
         Spu spu = spuFeign.findSpuById(spuId).getData();
 
-        //获取图片信息
+        // 获取图片信息
         if (spu != null) {
+            resultMap.put("spu", spu);
+
             if (StringUtils.isNotEmpty(spu.getImages())) {
                 resultMap.put("imageList", spu.getImages().split(","));
             }
         }
 
-        //获取商品的分类信息
+        // 获取商品的分类信息
         Category category1 = categoryFeign.findById(spu.getCategory1Id()).getData();
         resultMap.put("category1", category1);
 
@@ -127,11 +129,11 @@ public class PageServiceImpl implements PageService {
         Category category3 = categoryFeign.findById(spu.getCategory3Id()).getData();
         resultMap.put("category3", category3);
 
-        //获取sku的相关信息
+        // 获取sku的相关信息
         List<Sku> skuList = skuFeign.findSkuListBySpuId(spuId);
         resultMap.put("skuList", skuList);
 
-        //获取商品规格信息
+        // 获取商品规格信息
         Map specMap = JSON.parseObject(spu.getSpecItems(), Map.class);
         resultMap.put("specificationList", specMap);
 

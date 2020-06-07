@@ -29,13 +29,11 @@ public class RabbitMQConfig {
         return new Queue(AD_UPDATE_QUEUE);
     }
 
-    // 声明队列
     @Bean(SEARCH_ADD_QUEUE)
     public Queue SEARCH_ADD_QUEUE() {
         return new Queue(SEARCH_ADD_QUEUE);
     }
 
-    // 声明队列
     @Bean(SEARCH_DEL_QUEUE)
     public Queue SEARCH_DEL_QUEUE() {
         return new Queue(SEARCH_DEL_QUEUE);
@@ -47,18 +45,18 @@ public class RabbitMQConfig {
         return ExchangeBuilder.fanoutExchange(GOODS_UP_EXCHANGE).durable(true).build();
     }
 
-    // 声明交换机
     @Bean(GOODS_DOWN_EXCHANGE)
     public Exchange GOODS_DOWN_EXCHANGE() {
         return ExchangeBuilder.fanoutExchange(GOODS_DOWN_EXCHANGE).durable(true).build();
     }
 
     // 绑定交换机和队列
+    @Bean
     public Binding GOODS_UP_EXCHANGE_BINDING(@Qualifier(SEARCH_ADD_QUEUE) Queue queue, @Qualifier(GOODS_UP_EXCHANGE) Exchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with("").noargs();
     }
 
-    // 绑定交换机和队列
+    @Bean
     public Binding GOODS_DOWN_EXCHANGE_BINDING(@Qualifier(SEARCH_DEL_QUEUE) Queue queue, @Qualifier(GOODS_DOWN_EXCHANGE) Exchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with("").noargs();
     }

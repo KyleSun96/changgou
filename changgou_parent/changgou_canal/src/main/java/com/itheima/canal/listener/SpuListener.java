@@ -58,5 +58,12 @@ public class SpuListener {
             rabbitTemplate.convertAndSend(RabbitMQConfig.GOODS_DOWN_EXCHANGE, "", newData.get("id"));
         }
 
+
+        // 监控最新通过审核的商品    0 -> 1
+        if ("0".equals(oldData.get("status")) && "1".equals(newData.get("status"))) {
+            // 将商品的 spuId 发送到 mq
+            rabbitTemplate.convertAndSend(RabbitMQConfig.GOODS_UP_EXCHANGE, "", newData.get("id"));
+        }
+
     }
 }
