@@ -1,11 +1,17 @@
 package com.changgou.user.controller;
+
+import com.changgou.entity.PageResult;
+import com.changgou.entity.Result;
+import com.changgou.entity.StatusCode;
 import com.changgou.user.service.ProvincesService;
 import com.changgou.user.pojo.Provinces;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Map;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/provinces")
@@ -17,12 +23,13 @@ public class ProvincesController {
 
     /**
      * 查询全部数据
+     *
      * @return
      */
     @GetMapping
-    public Result findAll(){
+    public Result findAll() {
         List<Provinces> provincesList = provincesService.findAll();
-        return new Result(true, StatusCode.OK,"查询成功",provincesList) ;
+        return new Result(true, StatusCode.OK, "查询成功", provincesList);
     }
 
     /***
@@ -31,9 +38,9 @@ public class ProvincesController {
      * @return
      */
     @GetMapping("/{provinceid}")
-    public Result findById(@PathVariable String provinceid){
+    public Result findById(@PathVariable String provinceid) {
         Provinces provinces = provincesService.findById(provinceid);
-        return new Result(true,StatusCode.OK,"查询成功",provinces);
+        return new Result(true, StatusCode.OK, "查询成功", provinces);
     }
 
 
@@ -43,9 +50,9 @@ public class ProvincesController {
      * @return
      */
     @PostMapping
-    public Result add(@RequestBody Provinces provinces){
+    public Result add(@RequestBody Provinces provinces) {
         provincesService.add(provinces);
-        return new Result(true,StatusCode.OK,"添加成功");
+        return new Result(true, StatusCode.OK, "添加成功");
     }
 
 
@@ -55,11 +62,11 @@ public class ProvincesController {
      * @param provinceid
      * @return
      */
-    @PutMapping(value="/{provinceid}")
-    public Result update(@RequestBody Provinces provinces,@PathVariable String provinceid){
+    @PutMapping(value = "/{provinceid}")
+    public Result update(@RequestBody Provinces provinces, @PathVariable String provinceid) {
         provinces.setProvinceid(provinceid);
         provincesService.update(provinces);
-        return new Result(true,StatusCode.OK,"修改成功");
+        return new Result(true, StatusCode.OK, "修改成功");
     }
 
 
@@ -68,10 +75,10 @@ public class ProvincesController {
      * @param provinceid
      * @return
      */
-    @DeleteMapping(value = "/{provinceid}" )
-    public Result delete(@PathVariable String provinceid){
+    @DeleteMapping(value = "/{provinceid}")
+    public Result delete(@PathVariable String provinceid) {
         provincesService.delete(provinceid);
-        return new Result(true,StatusCode.OK,"删除成功");
+        return new Result(true, StatusCode.OK, "删除成功");
     }
 
     /***
@@ -79,10 +86,10 @@ public class ProvincesController {
      * @param searchMap
      * @return
      */
-    @GetMapping(value = "/search" )
-    public Result findList(@RequestParam Map searchMap){
+    @GetMapping(value = "/search")
+    public Result findList(@RequestParam Map searchMap) {
         List<Provinces> list = provincesService.findList(searchMap);
-        return new Result(true,StatusCode.OK,"查询成功",list);
+        return new Result(true, StatusCode.OK, "查询成功", list);
     }
 
 
@@ -93,11 +100,11 @@ public class ProvincesController {
      * @param size
      * @return
      */
-    @GetMapping(value = "/search/{page}/{size}" )
-    public Result findPage(@RequestParam Map searchMap, @PathVariable  int page, @PathVariable  int size){
+    @GetMapping(value = "/search/{page}/{size}")
+    public Result findPage(@RequestParam Map searchMap, @PathVariable int page, @PathVariable int size) {
         Page<Provinces> pageList = provincesService.findPage(searchMap, page, size);
-        PageResult pageResult=new PageResult(pageList.getTotal(),pageList.getResult());
-        return new Result(true,StatusCode.OK,"查询成功",pageResult);
+        PageResult pageResult = new PageResult(pageList.getTotal(), pageList.getResult());
+        return new Result(true, StatusCode.OK, "查询成功", pageResult);
     }
 
 

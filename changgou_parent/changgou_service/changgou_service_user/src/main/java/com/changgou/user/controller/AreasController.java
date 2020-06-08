@@ -1,11 +1,17 @@
 package com.changgou.user.controller;
+
+import com.changgou.entity.PageResult;
+import com.changgou.entity.Result;
+import com.changgou.entity.StatusCode;
 import com.changgou.user.service.AreasService;
 import com.changgou.user.pojo.Areas;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Map;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/areas")
@@ -17,12 +23,13 @@ public class AreasController {
 
     /**
      * 查询全部数据
+     *
      * @return
      */
     @GetMapping
-    public Result findAll(){
+    public Result findAll() {
         List<Areas> areasList = areasService.findAll();
-        return new Result(true, StatusCode.OK,"查询成功",areasList) ;
+        return new Result(true, StatusCode.OK, "查询成功", areasList);
     }
 
     /***
@@ -31,9 +38,9 @@ public class AreasController {
      * @return
      */
     @GetMapping("/{areaid}")
-    public Result findById(@PathVariable String areaid){
+    public Result findById(@PathVariable String areaid) {
         Areas areas = areasService.findById(areaid);
-        return new Result(true,StatusCode.OK,"查询成功",areas);
+        return new Result(true, StatusCode.OK, "查询成功", areas);
     }
 
 
@@ -43,9 +50,9 @@ public class AreasController {
      * @return
      */
     @PostMapping
-    public Result add(@RequestBody Areas areas){
+    public Result add(@RequestBody Areas areas) {
         areasService.add(areas);
-        return new Result(true,StatusCode.OK,"添加成功");
+        return new Result(true, StatusCode.OK, "添加成功");
     }
 
 
@@ -55,11 +62,11 @@ public class AreasController {
      * @param areaid
      * @return
      */
-    @PutMapping(value="/{areaid}")
-    public Result update(@RequestBody Areas areas,@PathVariable String areaid){
+    @PutMapping(value = "/{areaid}")
+    public Result update(@RequestBody Areas areas, @PathVariable String areaid) {
         areas.setAreaid(areaid);
         areasService.update(areas);
-        return new Result(true,StatusCode.OK,"修改成功");
+        return new Result(true, StatusCode.OK, "修改成功");
     }
 
 
@@ -68,10 +75,10 @@ public class AreasController {
      * @param areaid
      * @return
      */
-    @DeleteMapping(value = "/{areaid}" )
-    public Result delete(@PathVariable String areaid){
+    @DeleteMapping(value = "/{areaid}")
+    public Result delete(@PathVariable String areaid) {
         areasService.delete(areaid);
-        return new Result(true,StatusCode.OK,"删除成功");
+        return new Result(true, StatusCode.OK, "删除成功");
     }
 
     /***
@@ -79,10 +86,10 @@ public class AreasController {
      * @param searchMap
      * @return
      */
-    @GetMapping(value = "/search" )
-    public Result findList(@RequestParam Map searchMap){
+    @GetMapping(value = "/search")
+    public Result findList(@RequestParam Map searchMap) {
         List<Areas> list = areasService.findList(searchMap);
-        return new Result(true,StatusCode.OK,"查询成功",list);
+        return new Result(true, StatusCode.OK, "查询成功", list);
     }
 
 
@@ -93,11 +100,11 @@ public class AreasController {
      * @param size
      * @return
      */
-    @GetMapping(value = "/search/{page}/{size}" )
-    public Result findPage(@RequestParam Map searchMap, @PathVariable  int page, @PathVariable  int size){
+    @GetMapping(value = "/search/{page}/{size}")
+    public Result findPage(@RequestParam Map searchMap, @PathVariable int page, @PathVariable int size) {
         Page<Areas> pageList = areasService.findPage(searchMap, page, size);
-        PageResult pageResult=new PageResult(pageList.getTotal(),pageList.getResult());
-        return new Result(true,StatusCode.OK,"查询成功",pageResult);
+        PageResult pageResult = new PageResult(pageList.getTotal(), pageList.getResult());
+        return new Result(true, StatusCode.OK, "查询成功", pageResult);
     }
 
 
