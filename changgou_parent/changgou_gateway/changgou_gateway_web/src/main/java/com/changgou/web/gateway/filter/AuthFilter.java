@@ -33,7 +33,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
 
         // 1.判断当前请求路径是否为登录请求，如果是，则直接放行
         String path = request.getURI().getPath();
-        if ("/api/oauth/login".equals(path)) {
+        if ("/oauth/login".equals(path) || !UrlFilter.hasAuthorize(path)) {
             // 直接放行
             return chain.filter(exchange);
         }

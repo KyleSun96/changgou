@@ -42,6 +42,17 @@ public class AuthController {
 
 
     /**
+     * @description: //TODO 页面跳转
+     * @param: []
+     * @return: java.lang.String
+     */
+    @RequestMapping("/toLogin")
+    public String toLogin() {
+        return "login";
+    }
+
+
+    /**
      * @description: //TODO 用户登录认证
      * @param: [username, password, response]
      * @return: com.changgou.entity.Result
