@@ -13,7 +13,12 @@ import tk.mybatis.spring.annotation.MapperScan;
 public class OAuthApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(OAuthApplication.class,args);
+        SpringApplication.run(OAuthApplication.class, args);
+    }
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 
 }
