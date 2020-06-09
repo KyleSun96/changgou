@@ -75,7 +75,7 @@ public class AuthController {
      * @return: void
      */
     private void saveJtiToCookie(String jti, HttpServletResponse response) {
-        CookieUtil.addCookie(response, cookieDomain, File.separator, "uid", jti, cookieMaxAge, false);
+        CookieUtil.addCookie(response, cookieDomain, "/", "uid", jti, cookieMaxAge, false);
     }
 
 }
