@@ -43,6 +43,17 @@ public class UserController {
         return new Result(true, StatusCode.OK, "查询成功", user);
     }
 
+    /**
+     * @description: //TODO 根据ID查询数获取user用户
+     * @param: [username]
+     * @return: com.changgou.user.pojo.User
+     */
+    @GetMapping("/load/{username}")
+    public User findUserInfo(@PathVariable("username") String username) {
+        User user = userService.findById(username);
+        return user;
+    }
+
 
     /***
      * 新增数据

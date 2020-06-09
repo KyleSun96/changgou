@@ -83,8 +83,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http.authorizeRequests()
                 // 下边的路径放行
                 .antMatchers(
-                        // 配置地址放行
-                        "/user/add").
+                        // 配置放行地址
+                        "/user/add","/user/load/**").
                 permitAll()
                 .anyRequest().
                 authenticated();    // 其他地址需要认证授权
