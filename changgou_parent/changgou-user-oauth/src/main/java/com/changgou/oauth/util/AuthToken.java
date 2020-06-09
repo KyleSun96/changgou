@@ -1,8 +1,12 @@
 package com.changgou.oauth.util;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
-
+@Getter
+@Setter
 public class AuthToken implements Serializable {
 
     // 令牌信息
@@ -14,27 +18,4 @@ public class AuthToken implements Serializable {
     // jwt短令牌
     String jti;
 
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
-
-    public String getRefreshToken() {
-        return refreshToken;
-    }
-
-    public void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
-    }
-
-    public String getJti() {
-        return jti;
-    }
-
-    public void setJti(String jti) {
-        this.jti = jti;
-    }
 }
