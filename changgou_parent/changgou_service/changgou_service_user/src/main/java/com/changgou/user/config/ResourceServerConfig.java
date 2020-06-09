@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
  **/
 @Configuration
 @EnableResourceServer   // 声明当前服务是一个资源服务器
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true) //激活方法上的PreAuthorize注解
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true) // 激活方法上的PreAuthorize注解
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     // 声明使用的公钥
