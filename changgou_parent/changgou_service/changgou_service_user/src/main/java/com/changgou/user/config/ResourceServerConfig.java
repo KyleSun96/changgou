@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 /**
  * @Program: ChangGou
  * @ClassName: ResourceServerConfig
- * @Description: 基于公钥对私钥生成的Jwt令牌自动校验类
+ * @Description: 基于公钥对私钥生成的Jwt令牌的自动校验类
  * @Author: KyleSun
  **/
 @Configuration
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true) //激活方法上的PreAuthorize注解
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
-    // 公钥
+    // 声明使用的公钥
     private static final String PUBLIC_KEY = "public.key";
 
     /**
