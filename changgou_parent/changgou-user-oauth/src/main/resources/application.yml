@@ -25,13 +25,15 @@ eureka:
   client:
     service-url:
       defaultZone: http://127.0.0.1:6868/eureka
+
 # 自定义oauth属性
 auth:
-  ttl: 3600  #token存储到redis的过期时间
+  ttl: 3600  # token存储到redis的过期时间
   clientId: changgou
   clientSecret: changgou
   cookieDomain: localhost
-  cookieMaxAge: -1
+  cookieMaxAge: -1  # -1 表示浏览器关闭后，cookie失效
+
 # 设置私钥信息
 encrypt:
   key-store:

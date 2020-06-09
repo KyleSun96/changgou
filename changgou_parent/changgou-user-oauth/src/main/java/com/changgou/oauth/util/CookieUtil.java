@@ -7,17 +7,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * 操作cookie工具类
  */
 public class CookieUtil {
 
+
     /**
-     * 设置cookie
+     * 添加cookie
      *
      * @param response
-     * @param name     cookie名字
-     * @param value    cookie值
-     * @param maxAge   cookie生命周期 以秒为单位
+     * @param domain        设置cookie域名
+     * @param path          设置cookie路径
+     * @param name          设置cookie名称
+     * @param value         设置cookie的值，即jti
+     * @param maxAge        设置cookie生命周期，以秒为单位
+     * @param httpOnly
      */
     public static void addCookie(HttpServletResponse response, String domain, String path, String name,
                                  String value, int maxAge, boolean httpOnly) {

@@ -20,7 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
-     * @description: //TODO 忽略安全拦截的URL
+     * @description: //TODO 放行安全拦截的URL
      * @param: [web]
      * @return: void
      */
