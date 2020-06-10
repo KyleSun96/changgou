@@ -24,6 +24,11 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
+    /**
+     * @description: //TODO 添加购物车
+     * @param: [skuId, num]
+     * @return: com.changgou.entity.Result
+     */
     @GetMapping("/addCart")
     public Result addCart(@RequestParam("skuId") String skuId, @RequestParam("num") Integer num) {
 
@@ -35,6 +40,11 @@ public class CartController {
     }
 
 
+    /**
+     * @description: //TODO 查询购物车数据
+     * @param: []
+     * @return: java.util.Map
+     */
     @GetMapping("/list")
     public Map list() {
         // 动态获取用户名，暂时使用静态数据代替测试
