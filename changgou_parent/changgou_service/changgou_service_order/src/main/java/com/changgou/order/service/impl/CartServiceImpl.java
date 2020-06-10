@@ -10,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @Program: ChangGou
  * @ClassName: CartServiceImpl
@@ -66,6 +70,35 @@ public class CartServiceImpl implements CartService {
 
 
     }
+
+
+    /**
+     * @description: //TODO 查询购物车数据
+     * @param: [username]
+     * @return: java.util.Map
+     */
+    @Override
+    public Map list(String username) {
+
+        Map map = new HashMap();
+        List<OrderItem> orderItemList = redisTemplate.boundHashOps(CART + username).values();
+        map.put("orderItemList", orderItemList);
+
+        // 商品的总数量与总价格
+        Integer totalNum = 0;
+        Integer totalMoney = 0;
+
+        for (OrderItem orderItem : orderItemList) {
+            totalNum += orderItem.getNum();
+            totalMoney += orderItem.getMoney();
+        }
+
+        map.put("totalNum", totalNum);
+        map.put("totalMoney", totalMoney);
+
+        return map;
+    }
+
 
     /**
      * @description: //TODO 封装orderItem
