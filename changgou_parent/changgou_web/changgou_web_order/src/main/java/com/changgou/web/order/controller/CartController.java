@@ -48,7 +48,7 @@ public class CartController {
      * @return: com.changgou.entity.Result
      */
     @ResponseBody
-    @GetMapping("/addCart")
+    @GetMapping("/add")
     public Result<Map> addCart(String skuId, Integer num) {
 
         cartFeign.addCart(skuId, num);

@@ -54,6 +54,11 @@ public class CartServiceImpl implements CartService {
         if (null != orderItem) {
             // 2.1 如果当前商品在redis中的存在,则更新商品的数量与价钱
             orderItem.setNum(orderItem.getNum() + num);
+            // 当商品订单的数量 <= 0时，删除此商品订单
+            if (orderItem.getNum() <= 0) {
+                redisTemplate.boundHashOps(CART + username).delete(skuId);
+                return;
+            }
             orderItem.setMoney(orderItem.getPrice() * orderItem.getNum());
             orderItem.setPayMoney(orderItem.getPrice() * orderItem.getNum());
         } else {
