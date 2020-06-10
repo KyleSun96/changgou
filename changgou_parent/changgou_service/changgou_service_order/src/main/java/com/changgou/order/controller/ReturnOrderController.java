@@ -1,11 +1,17 @@
 package com.changgou.order.controller;
+
+import com.changgou.entity.PageResult;
+import com.changgou.entity.Result;
+import com.changgou.entity.StatusCode;
 import com.changgou.order.service.ReturnOrderService;
 import com.changgou.order.pojo.ReturnOrder;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Map;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/returnOrder")
@@ -17,12 +23,13 @@ public class ReturnOrderController {
 
     /**
      * 查询全部数据
+     *
      * @return
      */
     @GetMapping
-    public Result findAll(){
+    public Result findAll() {
         List<ReturnOrder> returnOrderList = returnOrderService.findAll();
-        return new Result(true, StatusCode.OK,"查询成功",returnOrderList) ;
+        return new Result(true, StatusCode.OK, "查询成功", returnOrderList);
     }
 
     /***
@@ -31,9 +38,9 @@ public class ReturnOrderController {
      * @return
      */
     @GetMapping("/{id}")
-    public Result findById(@PathVariable String id){
+    public Result findById(@PathVariable String id) {
         ReturnOrder returnOrder = returnOrderService.findById(id);
-        return new Result(true,StatusCode.OK,"查询成功",returnOrder);
+        return new Result(true, StatusCode.OK, "查询成功", returnOrder);
     }
 
 
@@ -43,9 +50,9 @@ public class ReturnOrderController {
      * @return
      */
     @PostMapping
-    public Result add(@RequestBody ReturnOrder returnOrder){
+    public Result add(@RequestBody ReturnOrder returnOrder) {
         returnOrderService.add(returnOrder);
-        return new Result(true,StatusCode.OK,"添加成功");
+        return new Result(true, StatusCode.OK, "添加成功");
     }
 
 
@@ -55,11 +62,11 @@ public class ReturnOrderController {
      * @param id
      * @return
      */
-    @PutMapping(value="/{id}")
-    public Result update(@RequestBody ReturnOrder returnOrder,@PathVariable String id){
+    @PutMapping(value = "/{id}")
+    public Result update(@RequestBody ReturnOrder returnOrder, @PathVariable String id) {
         returnOrder.setId(id);
         returnOrderService.update(returnOrder);
-        return new Result(true,StatusCode.OK,"修改成功");
+        return new Result(true, StatusCode.OK, "修改成功");
     }
 
 
@@ -68,10 +75,10 @@ public class ReturnOrderController {
      * @param id
      * @return
      */
-    @DeleteMapping(value = "/{id}" )
-    public Result delete(@PathVariable String id){
+    @DeleteMapping(value = "/{id}")
+    public Result delete(@PathVariable String id) {
         returnOrderService.delete(id);
-        return new Result(true,StatusCode.OK,"删除成功");
+        return new Result(true, StatusCode.OK, "删除成功");
     }
 
     /***
@@ -79,10 +86,10 @@ public class ReturnOrderController {
      * @param searchMap
      * @return
      */
-    @GetMapping(value = "/search" )
-    public Result findList(@RequestParam Map searchMap){
+    @GetMapping(value = "/search")
+    public Result findList(@RequestParam Map searchMap) {
         List<ReturnOrder> list = returnOrderService.findList(searchMap);
-        return new Result(true,StatusCode.OK,"查询成功",list);
+        return new Result(true, StatusCode.OK, "查询成功", list);
     }
 
 
@@ -93,11 +100,11 @@ public class ReturnOrderController {
      * @param size
      * @return
      */
-    @GetMapping(value = "/search/{page}/{size}" )
-    public Result findPage(@RequestParam Map searchMap, @PathVariable  int page, @PathVariable  int size){
+    @GetMapping(value = "/search/{page}/{size}")
+    public Result findPage(@RequestParam Map searchMap, @PathVariable int page, @PathVariable int size) {
         Page<ReturnOrder> pageList = returnOrderService.findPage(searchMap, page, size);
-        PageResult pageResult=new PageResult(pageList.getTotal(),pageList.getResult());
-        return new Result(true,StatusCode.OK,"查询成功",pageResult);
+        PageResult pageResult = new PageResult(pageList.getTotal(), pageList.getResult());
+        return new Result(true, StatusCode.OK, "查询成功", pageResult);
     }
 
 
