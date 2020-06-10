@@ -184,6 +184,12 @@
                 axios.post("/api/oauth/login?username=" + app.username + "&password=" + app.password).then(function (response) {
                     if (response.data.flag) {
                         app.msg = "登录成功";
+                        // 跳转原地址
+                        /*if (app.from != '') {
+                            location.href = app.from;
+                        }else {
+                            // 跳转首页路径，后续添加
+                        }*/
                         location.href = app.from;
                     } else {
                         app.msg = "登录失败";
