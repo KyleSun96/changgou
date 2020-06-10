@@ -33,15 +33,15 @@ public class SkuController {
         return new Result(true, StatusCode.OK, "查询成功", skuList);
     }
 
-    /***
-     * 根据ID查询数据
-     * @param id
-     * @return
+    /**
+     * @description: //TODO 根据skuId查询数据
+     * @param: [id]
+     * @return: com.changgou.entity.Result<com.changgou.goods.pojo.Sku>
      */
     @GetMapping("/{id}")
-    public Result findById(@PathVariable String id) {
-        Sku sku = skuService.findById(id);
-        return new Result(true, StatusCode.OK, "查询成功", sku);
+    public Result<Sku> findById(@PathVariable("id") String skuId) {
+        Sku sku = skuService.findById(skuId);
+        return new Result<>(true, StatusCode.OK, "查询成功", sku);
     }
 
 

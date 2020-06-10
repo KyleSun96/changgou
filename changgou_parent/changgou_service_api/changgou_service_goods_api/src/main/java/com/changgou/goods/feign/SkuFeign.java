@@ -20,4 +20,13 @@ public interface SkuFeign {
     @GetMapping("/sku/spu/{spuId}")
     public List<Sku> findSkuListBySpuId(@PathVariable("spuId") String spuId);
 
+
+    /**
+     * @description: //TODO 根据skuId查询sku信息
+     * @param: [id]
+     * @return: com.changgou.entity.Result<com.changgou.goods.pojo.Sku>
+     */
+    @GetMapping("/sku/{id}")
+    public Result<Sku> findById(@PathVariable("id") String skuId);
+
 }
