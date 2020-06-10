@@ -27,6 +27,6 @@ public interface SkuFeign {
      * @return: com.changgou.entity.Result<com.changgou.goods.pojo.Sku>
      */
     @GetMapping("/sku/{id}")
-    public Result<Sku> findById(@PathVariable("id") String skuId);
+    public Result<Sku> findById(@PathVariable("id") String id);
 
 }

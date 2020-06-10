@@ -39,8 +39,8 @@ public class SkuController {
      * @return: com.changgou.entity.Result<com.changgou.goods.pojo.Sku>
      */
     @GetMapping("/{id}")
-    public Result<Sku> findById(@PathVariable("id") String skuId) {
-        Sku sku = skuService.findById(skuId);
+    public Result<Sku> findById(@PathVariable("id") String id) {
+        Sku sku = skuService.findById(id);
         return new Result<>(true, StatusCode.OK, "查询成功", sku);
     }
 
