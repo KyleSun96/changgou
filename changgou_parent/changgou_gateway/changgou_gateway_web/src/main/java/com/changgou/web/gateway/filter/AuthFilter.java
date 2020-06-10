@@ -48,7 +48,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
             /*response.setStatusCode(HttpStatus.UNAUTHORIZED);
             return response.setComplete();*/
             // 跳转到登录界面
-            return this.toLoginPage(LOGIN_URL, exchange);
+            return this.toLoginPage(LOGIN_URL + "?FROM=" + request.getURI(), exchange);
 
         }
 
@@ -59,7 +59,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
             /*response.setStatusCode(HttpStatus.UNAUTHORIZED);
             return response.setComplete();*/
             // 跳转到登录界面
-            return this.toLoginPage(LOGIN_URL, exchange);
+            return this.toLoginPage(LOGIN_URL + "?FROM=" + request.getURI(), exchange);
         }
 
         // 4.对当前的请求对象进行增强，让它会携带令牌的信息
