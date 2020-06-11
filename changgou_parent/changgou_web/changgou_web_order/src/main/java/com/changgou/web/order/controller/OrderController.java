@@ -50,6 +50,14 @@ public class OrderController {
         model.addAttribute("totalMoney", totalMoney);
         model.addAttribute("totalNum", totalNum);
 
+        // 默认收件人信息
+        for (Address address : addressList) {
+            if ("1".equals(address.getIsDefault())) {
+                // deAddr --> default address 默认收件人
+                model.addAttribute("deAddr", address);
+                break;
+            }
+        }
         return "order";
     }
 
