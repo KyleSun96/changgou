@@ -16,6 +16,7 @@ public interface AddressService {
 
     /**
      * 根据ID查询
+     *
      * @param id
      * @return
      */
@@ -64,6 +65,11 @@ public interface AddressService {
     Page<Address> findPage(Map<String, Object> searchMap, int page, int size);
 
 
-
+    /**
+     * @description: //TODO 根据当前登录人的名称查询相关收件人的地址信息
+     * @param: [username]
+     * @return: java.util.List<com.changgou.user.pojo.Address>
+     */
+    List<Address> list(String username);
 
 }
