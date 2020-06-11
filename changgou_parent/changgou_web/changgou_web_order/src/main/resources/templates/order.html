@@ -22,8 +22,8 @@
                 <div class="shortcut">
                     <ul class="fl">
                         <li class="f-item">畅购欢迎您！</li>
-                        <li class="f-item">请<a href="login.html" target="_blank">登录</a>　
-                            <span><a href="register.html" target="_blank">免费注册</a></span>
+                        <li class="f-item">请<a href="login.html" target="_blank">登录</a>　<span><a href="register.html"
+                                                                                                 target="_blank">免费注册</a></span>
                         </li>
                     </ul>
                     <div class="fr typelist">
@@ -72,7 +72,7 @@
 </div>
 
 
-<div class="cart py-container" id="app">
+<div class="cart py-container">
     <!--主内容-->
     <div class="checkout py-container">
         <div class="checkout-tit">
@@ -87,15 +87,15 @@
                 <div class="addressInfo">
                     <ul class="addr-detail">
                         <li class="addr-item">
-
                             <div class="choose-address" th:each="addr:${address}">
-                                <div class="con name "
-                                     th:@click="|chooseAddr('${addr.contact}','${addr.phone}','${addr.address}')|"
-                                     th:classappend="${addr.isDefault}==1?'selected':''"><a href="javascript:;"><em
-                                        th:text="${addr.contact}"></em> <span title="点击取消选择"></span></a></div>
+                                <div class="con name" th:classappend="${addr.isDefault}==1?'selected':''"><a
+                                        href="javascript:;">
+                                    <em th:text="${addr.contact}"></em>
+                                    <span title="点击取消选择"></span></a>
+                                </div>
                                 <div class="con address">
-                                    <span class="place"><em th:text="${addr.address}"></em> </span>
-                                    <span class="phone"><em th:text="${addr.phone}"></em> </span>
+                                    <span class="place"><em th:text="${addr.address}"></em></span>
+                                    <span class="phone"><em th:text="${addr.phone}"></em></span>
                                     <span class="base" th:if="${addr.isDefault}==1">默认地址</span>
                                 </div>
                                 <div class="clearfix"></div>
@@ -113,8 +113,8 @@
                 </div>
                 <div class="step-cont">
                     <ul class="payType">
-                        <li class="selected" th:@click="|order.payType=1|">在线支付<span title="点击取消选择"></span></li>
-                        <li th:@click="|order.payType=0|">货到付款<span title="点击取消选择"></span></li>
+                        <li class="selected">在线支付<span title="点击取消选择"></span></li>
+                        <li>货到付款<span title="点击取消选择"></span></li>
                     </ul>
                 </div>
                 <div class="hr"></div>
@@ -135,25 +135,28 @@
                             </div>
                             <div class="sendGoods">
                                 <span>商品清单：</span>
+                                <!--购物车遍历商品-->
                                 <ul class="yui3-g" th:each="cart:${carts}">
+                                    <!--获取商品图片-->
                                     <li class="yui3-u-1-6">
                                         <span><img th:src="${cart.image}" style="max-height: 80px"/></span>
                                     </li>
                                     <li class="yui3-u-7-12">
+                                        <!--获取商品名-->
                                         <div class="desc" th:text="${cart.name}"></div>
                                         <div class="seven">7天无理由退货</div>
                                     </li>
                                     <li class="yui3-u-1-12">
+                                        <!--获取商品价格-->
                                         <div class="price">￥<em th:text="${cart.price}"></em></div>
                                     </li>
                                     <li class="yui3-u-1-12">
+                                        <!--获取商品数量-->
                                         <div class="num">X<em th:text="${cart.num}"></em></div>
                                     </li>
                                     <li class="yui3-u-1-12">
                                         <div class="exit">有货</div>
                                     </li>
-
-
                                 </ul>
                             </div>
                             <div class="buyMessage">
@@ -188,8 +191,8 @@
     <div class="order-summary">
         <div class="static fr">
             <div class="list">
-                <span><i class="number"><em th:text="${totalNum}"></em> </i>件商品，总商品金额</span>
-                <em class="allprice">¥<em th:text="${totalMoney}"></em></em>
+                <span><i class="number"><em th:text="${totalNum}"></em></i>件商品，总商品金额</span>
+                <em class="allprice">¥<em th:text="${totalMoney}"></em>.00</em>
             </div>
             <div class="list">
                 <span>返现：</span>
@@ -202,16 +205,16 @@
         </div>
     </div>
     <div class="clearfix trade">
-        <div class="fc-price">应付金额:　<span class="price">¥<em th:text="${totalMoney}"></em></span></div>
+        <div class="fc-price">应付金额:　<span class="price">¥<em th:text="${totalMoney}"></em>.00</span></div>
         <div class="fc-receiverInfo">
             寄送至:
-            <span id="receive-address">{{order.receiveAddress}}</span>
-            收货人：<span id="receive-name">{{order.receiveContact}}</span>
-            <span id="receive-phone">{{order.receiveMobile}}</span>
+            <span id="receive-address">北京市海淀区三环内中关村软件园9号楼</span>
+            收货人：<span id="receive-name">冯提莫</span>
+            <span id="receive-phone">15922333201</span>
         </div>
     </div>
     <div class="submit">
-        <a class="sui-btn btn-danger btn-xlarge" href="javascript:void(0)" @click="add()">提交订单</a>
+        <a class="sui-btn btn-danger btn-xlarge" href="pay.html">提交订单</a>
     </div>
 </div>
 <!-- 底部栏位 -->
@@ -352,6 +355,8 @@
 <script type="text/javascript" src="/js/axios.js"></script>
 
 <script>
+
+
     $(function () {
         $(".address").hover(function () {
             $(this).addClass("address-hover");
@@ -372,37 +377,10 @@
             $(this).toggleClass("selected").siblings().removeClass("selected");
         });
     })
+
+
 </script>
-<script th:inline="javascript">
-    var app = new Vue({
-        el: "#app",
-        data: {
-            order: {
-                'receiveContact': [[${deAddr.contact}]],
-                'receiveMobile': [[${deAddr.phone}]],
-                'receiveAddress': [[${deAddr.address}]],
-                'payType': 1
-            }
-        },
-        methods: {
-            chooseAddr: function (contact, mobile, address) {
-                app.$set(app.order, 'receiveContact', contact);
-                app.$set(app.order, 'receiveMobile', mobile);
-                app.$set(app.order, 'receiveAddress', address);
-            },
-            add: function () {
-                axios.post('/api/worder/add', this.order).then(function (response) {
-                    if (response.data.flag) {
-                        //添加订单成功
-                        alert("添加订单成功");
-                    } else {
-                        alert("添加订单失败");
-                    }
-                })
-            }
-        }
-    })
-</script>
+
 </body>
 
 </html>
