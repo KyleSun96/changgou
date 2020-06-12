@@ -44,7 +44,7 @@ public class IdWorker {
     private final static long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;
 
     private final static long sequenceMask = -1L ^ (-1L << sequenceBits);
-    /* 上次生产id时间戳 */
+    // 上次生产id时间戳
     private static long lastTimestamp = -1L;
     // 0，并发控制
     private long sequence = 0L;
@@ -76,9 +76,9 @@ public class IdWorker {
 
 
     /**
-     * 获取下一个ID
-     *
-     * @return
+     * @description: //TODO 获取下一个ID
+     * @param: []
+     * @return: long
      */
     public synchronized long nextId() {
         long timestamp = timeGen();
@@ -121,9 +121,9 @@ public class IdWorker {
 
 
     /**
-     * <p>
-     * 获取 maxWorkerId
-     * </p>
+     * @description: //TODO 获取 maxWorkerId
+     * @param: [datacenterId, maxWorkerId]
+     * @return: long
      */
     protected static long getMaxWorkerId(long datacenterId, long maxWorkerId) {
         StringBuffer mpid = new StringBuffer();
@@ -143,9 +143,9 @@ public class IdWorker {
 
 
     /**
-     * <p>
-     * 数据标识id部分
-     * </p>
+     * @description: //TODO 数据标识id部分
+     * @param: [maxDatacenterId]
+     * @return: long
      */
     protected static long getDatacenterId(long maxDatacenterId) {
         long id = 0L;
