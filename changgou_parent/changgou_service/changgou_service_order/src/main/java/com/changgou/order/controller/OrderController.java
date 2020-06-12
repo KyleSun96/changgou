@@ -1,5 +1,6 @@
 package com.changgou.order.controller;
 
+import com.changgou.order.config.TokenDecode;
 import com.changgou.order.service.OrderService;
 import com.changgou.entity.PageResult;
 import com.changgou.entity.Result;
@@ -20,6 +21,9 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private TokenDecode tokenDecode;
 
     /**
      * 查询全部数据
@@ -51,6 +55,10 @@ public class OrderController {
      */
     @PostMapping
     public Result add(@RequestBody Order order) {
+        // 获取登录人名称
+        String username = tokenDecode.getUserInfo().get("username");
+        order.setUsername(username);
+
         orderService.add(order);
         return new Result(true, StatusCode.OK, "添加成功");
     }

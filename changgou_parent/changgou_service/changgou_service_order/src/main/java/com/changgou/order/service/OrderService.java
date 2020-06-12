@@ -16,14 +16,16 @@ public interface OrderService {
 
     /**
      * 根据ID查询
+     *
      * @param id
      * @return
      */
     Order findById(String id);
 
-    /***
-     * 新增
-     * @param order
+    /**
+     * @description: //TODO 新增订单
+     * @param: [order]
+     * @return: void
      */
     void add(Order order);
 
@@ -62,8 +64,6 @@ public interface OrderService {
      * @return
      */
     Page<Order> findPage(Map<String, Object> searchMap, int page, int size);
-
-
 
 
 }
