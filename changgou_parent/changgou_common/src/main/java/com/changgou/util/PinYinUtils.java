@@ -13,10 +13,11 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
  */
 public class PinYinUtils {
 
+
     /**
-     * 将文字转为汉语拼音
-     *
-     * @param chineselanguage 要转成拼音的中文
+     * @description: //TODO 将文字转为汉语拼音
+     * @param: [chineselanguage]【要转成拼音的中文】
+     * @return: java.lang.String
      */
     public String toHanyuPinyin(String chineselanguage) {
         char[] cl_chars = chineselanguage.trim().toCharArray();
@@ -39,19 +40,26 @@ public class PinYinUtils {
         return hanyupinyin;
     }
 
+
     /**
-     * 汉字的首字母 转成大写
-     *
-     * @param ChineseLanguage
-     * @return
+     * @description: //TODO 获得汉字的首字母 转成大写
+     * @param: [ChineseLanguage]
+     * @return: java.lang.String
      */
     public static String getFirstLettersUp(String ChineseLanguage) {
         return getFirstLetters(ChineseLanguage, HanyuPinyinCaseType.UPPERCASE);
     }
 
+
+    /**
+     * @description: //TODO 获得汉字的首字母 转成小写
+     * @param: [ChineseLanguage]
+     * @return: java.lang.String
+     */
     public static String getFirstLettersLo(String ChineseLanguage) {
         return getFirstLetters(ChineseLanguage, HanyuPinyinCaseType.LOWERCASE);
     }
+
 
     public static String getFirstLetters(String ChineseLanguage, HanyuPinyinCaseType caseType) {
         char[] cl_chars = ChineseLanguage.trim().toCharArray();
@@ -69,7 +77,7 @@ public class PinYinUtils {
                 } else if (str.matches("[a-zA-Z]+")) {// 如果字符是字母,取字母
                     hanyupinyin += cl_chars[i];
                 } else {// 否则不转换
-                    hanyupinyin += cl_chars[i];//如果是标点符号的话，带着
+                    hanyupinyin += cl_chars[i];// 如果是标点符号的话，带着
                 }
             }
         } catch (BadHanyuPinyinOutputFormatCombination e) {
@@ -77,6 +85,7 @@ public class PinYinUtils {
         }
         return hanyupinyin;
     }
+
 
     public static String getPinyinString(String ChineseLanguage) {
         char[] cl_chars = ChineseLanguage.trim().toCharArray();
@@ -103,13 +112,11 @@ public class PinYinUtils {
         return hanyupinyin;
     }
 
+
     /**
-     * 取第一个汉字的第一个字符
-     *
-     * @return String
-     * @throws
-     * @Title: getFirstLetter
-     * @Description: TODO
+     * @description: //TODO 取第一个汉字的第一个字符
+     * @param: [ChineseLanguage]
+     * @return: java.lang.String
      */
     public static String getFirstLetter(String ChineseLanguage) {
         char[] cl_chars = ChineseLanguage.trim().toCharArray();
@@ -136,10 +143,12 @@ public class PinYinUtils {
         return hanyupinyin;
     }
 
+
     public static void main(String[] args) {
         PinYinUtils pinYinUtils = new PinYinUtils();
         System.out.println(pinYinUtils.toHanyuPinyin("长城"));
         System.out.println(PinYinUtils.getFirstLetter("三星"));
         System.out.println(PinYinUtils.getFirstLetters("三星", HanyuPinyinCaseType.UPPERCASE));
     }
+
 }
