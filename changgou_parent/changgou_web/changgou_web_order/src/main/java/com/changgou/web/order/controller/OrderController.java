@@ -50,7 +50,7 @@ public class OrderController {
         model.addAttribute("totalMoney", totalMoney);
         model.addAttribute("totalNum", totalNum);
 
-        // 默认收件人信息
+        // 未选择收件人时，底部初始化加载默认的收件人
         for (Address address : addressList) {
             if ("1".equals(address.getIsDefault())) {
                 // deAddr --> default address 默认收件人
