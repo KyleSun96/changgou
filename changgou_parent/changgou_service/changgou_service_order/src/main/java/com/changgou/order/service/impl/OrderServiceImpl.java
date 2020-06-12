@@ -1,5 +1,6 @@
 package com.changgou.order.service.impl;
 
+import com.changgou.goods.feign.SkuFeign;
 import com.changgou.order.dao.OrderItemMapper;
 import com.changgou.order.dao.OrderMapper;
 import com.changgou.order.pojo.OrderItem;
@@ -35,6 +36,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderItemMapper orderItemMapper;
+
+    @Autowired
+    private SkuFeign skuFeign;
 
     /**
      * 查询全部列表
@@ -91,16 +95,17 @@ public class OrderServiceImpl implements OrderService {
 
         // 4.填充订单项数据并保存到 tb_order_item
         for (OrderItem orderItem : orderItemList) {
-            orderItem.setId(idWorker.nextId()+"");
+            orderItem.setId(idWorker.nextId() + "");
             orderItem.setIsReturn("0");             // 0:未退货 1:已退货
             orderItem.setOrderId(orderId);
             orderItemMapper.insertSelective(orderItem);
         }
 
         // 5.扣减库存量计数并增加销量计数
+        skuFeign.decrCount(order.getUsername());
 
         // 6.从redis中删除购物车的相关数据
-        redisTemplate.delete("cart_"+order.getUsername());
+        redisTemplate.delete("cart_" + order.getUsername());
 
     }
 

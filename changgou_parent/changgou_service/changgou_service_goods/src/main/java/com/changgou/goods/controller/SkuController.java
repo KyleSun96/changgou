@@ -127,4 +127,17 @@ public class SkuController {
     }
 
 
+    /**
+     * @description: //TODO 扣减库存，添加销量
+     * @param: [username]
+     * @return: com.changgou.entity.Result
+     * @author: KyleSun
+     */
+    @PostMapping("/decr/count")
+    public Result decrCount(@RequestParam("username") String username) {
+        skuService.decrCount(username);
+        return new Result(true, StatusCode.OK, "库存扣减成功");
+    }
+
+
 }

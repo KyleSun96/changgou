@@ -1,5 +1,6 @@
 package com.changgou;
 
+import com.changgou.interceptor.FeignInterceptor;
 import com.changgou.order.config.TokenDecode;
 import com.changgou.util.IdWorker;
 import org.springframework.boot.SpringApplication;
@@ -29,6 +30,12 @@ public class OrderApplication {
     @Bean
     public IdWorker idWorker() {
         return new IdWorker();
+    }
+
+    // 订单服务调用商品服务，基于feign调用扣减库存方法，需要传递令牌验证身份
+    @Bean
+    public FeignInterceptor feignInterceptor() {
+        return new FeignInterceptor();
     }
 
 }

@@ -396,7 +396,7 @@
             add: function () {
                 axios.post('/api/worder/add', this.order).then(function (response) {
                     if (response.data.flag) {
-                        //添加订单成功
+                        // 添加订单成功
                         alert("添加订单成功");
                     } else {
                         alert("添加订单失败");
