@@ -3,6 +3,7 @@ package com.changgou.user.controller;
 import com.changgou.entity.PageResult;
 import com.changgou.entity.Result;
 import com.changgou.entity.StatusCode;
+import com.changgou.user.config.TokenDecode;
 import com.changgou.user.service.UserService;
 import com.changgou.user.pojo.User;
 import com.github.pagehelper.Page;
@@ -21,6 +22,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TokenDecode tokenDecode;
 
     /**
      * 查询全部数据
@@ -120,5 +124,21 @@ public class UserController {
         return new Result(true, StatusCode.OK, "查询成功", pageResult);
     }
 
+
+    /**
+     * @description: //TODO 添加用户积分
+     * @param: []
+     * @return: com.changgou.entity.Result
+     */
+    @GetMapping("/point/add")
+    public Result addUserPoints(Integer point) {
+
+        // 获取用户名
+        String username = tokenDecode.getUserInfo().get("username");
+
+        // 添加积分
+        userService.addUserPoints(username, point);
+        return new Result(true, StatusCode.OK, "添加积分成功");
+    }
 
 }

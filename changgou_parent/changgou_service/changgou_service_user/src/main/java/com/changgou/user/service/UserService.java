@@ -16,6 +16,7 @@ public interface UserService {
 
     /**
      * 根据ID查询
+     *
      * @param username
      * @return
      */
@@ -64,6 +65,11 @@ public interface UserService {
     Page<User> findPage(Map<String, Object> searchMap, int page, int size);
 
 
-
+    /**
+     * @description: //TODO 添加用户积分
+     * @param: [username, pint]
+     * @return: int
+     */
+    int addUserPoints(String username, Integer point);
 
 }

@@ -7,6 +7,7 @@ import com.changgou.order.pojo.OrderItem;
 import com.changgou.order.service.CartService;
 import com.changgou.order.service.OrderService;
 import com.changgou.order.pojo.Order;
+import com.changgou.user.feign.UserFeign;
 import com.changgou.util.IdWorker;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -39,6 +40,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private SkuFeign skuFeign;
+
+    @Autowired
+    private UserFeign userFeign;
 
     /**
      * 查询全部列表
@@ -104,7 +108,10 @@ public class OrderServiceImpl implements OrderService {
         // 5.扣减库存量计数并增加销量计数
         skuFeign.decrCount(order.getUsername());
 
-        // 6.从redis中删除购物车的相关数据
+        // 6.增加用户积分，买商品增加10积分
+        userFeign.addUserPoints(10);
+
+        // 7.从redis中删除购物车的相关数据
         redisTemplate.delete("cart_" + order.getUsername());
 
     }
