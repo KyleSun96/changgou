@@ -1,5 +1,6 @@
 package com.changgou.order.service.impl;
 
+import com.alibaba.fescar.spring.annotation.GlobalTransactional;
 import com.changgou.goods.feign.SkuFeign;
 import com.changgou.order.dao.OrderItemMapper;
 import com.changgou.order.dao.OrderMapper;
@@ -72,6 +73,7 @@ public class OrderServiceImpl implements OrderService {
      * @return: void
      */
     @Override
+    @GlobalTransactional(name = "order_add")
     public void add(Order order) {
 
         // 1.从redis中获取购物车的相关数据
@@ -110,6 +112,8 @@ public class OrderServiceImpl implements OrderService {
 
         // 6.增加用户积分，买商品增加10积分
         userFeign.addUserPoints(10);
+
+        // int i = 1 / 0;
 
         // 7.从redis中删除购物车的相关数据
         redisTemplate.delete("cart_" + order.getUsername());
