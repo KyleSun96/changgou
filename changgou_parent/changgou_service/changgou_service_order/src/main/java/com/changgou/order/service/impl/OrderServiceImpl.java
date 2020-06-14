@@ -1,10 +1,14 @@
 package com.changgou.order.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fescar.spring.annotation.GlobalTransactional;
 import com.changgou.goods.feign.SkuFeign;
+import com.changgou.order.config.RabbitMQConfig;
 import com.changgou.order.dao.OrderItemMapper;
 import com.changgou.order.dao.OrderMapper;
+import com.changgou.order.dao.TaskMapper;
 import com.changgou.order.pojo.OrderItem;
+import com.changgou.order.pojo.Task;
 import com.changgou.order.service.CartService;
 import com.changgou.order.service.OrderService;
 import com.changgou.order.pojo.Order;
@@ -18,6 +22,7 @@ import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +49,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private UserFeign userFeign;
+
+    @Autowired
+    private TaskMapper taskMapper;
 
     /**
      * 查询全部列表
@@ -110,13 +118,44 @@ public class OrderServiceImpl implements OrderService {
         // 5.扣减库存量计数并增加销量计数
         skuFeign.decrCount(order.getUsername());
 
-        // 6.增加用户积分，买商品增加10积分
-        userFeign.addUserPoints(10);
+        // 6.添加用户积分
+        userFeign.addUserPoints(totalMoney);
 
+        // 测试事务
         // int i = 1 / 0;
+
+        // 8.添加任务数据
+        this.inputTaskData(order);
+
 
         // 7.从redis中删除购物车的相关数据
         redisTemplate.delete("cart_" + order.getUsername());
+
+    }
+
+
+    /**
+     * @description: //TODO 添加任务数据
+     * @param: [order]
+     * @return: void
+     */
+    private void inputTaskData(Order order) {
+
+        System.out.println("1.向订单数据库中的任务表添加任务数据");
+
+        Task task = new Task();
+        task.setCreateTime(new Date());
+        task.setUpdateTime(new Date());
+        task.setMqExchange(RabbitMQConfig.EX_BUYING_ADDPOINTUSER);
+        task.setMqRoutingkey(RabbitMQConfig.CG_BUYING_ADDPOINT_KEY);
+
+        Map map = new HashMap();
+        map.put("username", order.getUsername());
+        map.put("orderId", order.getId());
+        map.put("point", order.getPayMoney());
+        task.setRequestBody(JSON.toJSONString(map));
+
+        taskMapper.insertSelective(task);
 
     }
 

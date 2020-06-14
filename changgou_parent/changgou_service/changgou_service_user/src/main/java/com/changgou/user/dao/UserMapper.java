@@ -9,7 +9,7 @@ public interface UserMapper extends Mapper<User> {
 
 
     /**
-     * @description: //TODO 添加用户积分
+     * @description: //TODO 修改用户积分
      * @param: [username, point]
      * @return: int
      */
