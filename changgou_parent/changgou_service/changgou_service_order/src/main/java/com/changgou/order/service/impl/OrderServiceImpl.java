@@ -124,7 +124,7 @@ public class OrderServiceImpl implements OrderService {
         userFeign.addUserPoints(totalMoney);
 
         // 测试事务
-         int i = 1 / 0;
+        // int i = 1 / 0;
 
         // 8.添加任务数据
         this.inputTaskData(order);

@@ -1,6 +1,7 @@
 package com.changgou.order.dao;
 
 import com.changgou.order.pojo.Task;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -36,6 +37,6 @@ public interface TaskMapper extends Mapper<Task> {
             @Result(column = "status", property = "status"),
             @Result(column = "errormsg", property = "errormsg")
     })
-    List<Task> findTaskLessThanCurrentTime(Date currentTime);
+    List<Task> findTaskLessThanCurrentTime(@Param("currentTime") Date currentTime);
 
 }

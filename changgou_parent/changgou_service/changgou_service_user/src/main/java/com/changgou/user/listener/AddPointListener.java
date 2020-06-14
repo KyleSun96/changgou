@@ -9,6 +9,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
 
 /**
  * @Program: ChangGou
@@ -16,6 +17,7 @@ import org.springframework.data.redis.core.RedisTemplate;
  * @Description: 接收消息监听类
  * @Author: KyleSun
  **/
+@Component
 public class AddPointListener {
 
     @Autowired
