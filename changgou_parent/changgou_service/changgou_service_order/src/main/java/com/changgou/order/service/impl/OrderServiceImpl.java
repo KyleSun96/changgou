@@ -1,7 +1,7 @@
 package com.changgou.order.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fescar.spring.annotation.GlobalTransactional;
+//import com.alibaba.fescar.spring.annotation.GlobalTransactional;
 import com.changgou.goods.feign.SkuFeign;
 import com.changgou.order.config.RabbitMQConfig;
 import com.changgou.order.dao.OrderItemMapper;
@@ -19,6 +19,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
@@ -81,7 +82,8 @@ public class OrderServiceImpl implements OrderService {
      * @return: void
      */
     @Override
-    @GlobalTransactional(name = "order_add")
+    // @GlobalTransactional(name = "order_add")
+    @Transactional
     public void add(Order order) {
 
         // 1.从redis中获取购物车的相关数据
@@ -122,7 +124,7 @@ public class OrderServiceImpl implements OrderService {
         userFeign.addUserPoints(totalMoney);
 
         // 测试事务
-        // int i = 1 / 0;
+         int i = 1 / 0;
 
         // 8.添加任务数据
         this.inputTaskData(order);
