@@ -41,7 +41,7 @@ public class WXPayServiceImpl implements WXPayService {
 
             // 微信订单金额单位为分，且为防止精度丢失，使用BigDecimal
             // 此处指定商品金额以便支付测试
-            BigDecimal payMoney = new BigDecimal("0.01");   // 单位：元
+            BigDecimal payMoney = new BigDecimal("0.00");   // 单位：元
             BigDecimal fen = payMoney.multiply(new BigDecimal("100")); // 单位：分 --> 1.00
             fen = fen.setScale(0, BigDecimal.ROUND_UP); // 保留小数点后0位，并向上取整：1
 
