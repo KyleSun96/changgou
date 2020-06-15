@@ -66,4 +66,10 @@ public interface OrderService {
     Page<Order> findPage(Map<String, Object> searchMap, int page, int size);
 
 
+    /**
+     * @description: //TODO 用户付款后，完成订单数据库的修改
+     * @param: [orderId, transactionId]
+     * @return: void
+     */
+    void updatePayStatus(String orderId, String transactionId);
 }

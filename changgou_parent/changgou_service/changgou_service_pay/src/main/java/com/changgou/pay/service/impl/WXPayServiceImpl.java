@@ -59,4 +59,24 @@ public class WXPayServiceImpl implements WXPayService {
             return null;
         }
     }
+
+
+    /**
+     * @description: //TODO 基于微信查询订单
+     * @param: [orderId]
+     * @return: java.util.Map
+     */
+    @Override
+    public Map queryOrder(String orderId) {
+
+        try {
+            Map<String, String> map = new HashMap<>();
+            map.put("out_trade_no", orderId);
+            return wxPay.orderQuery(map);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 }
