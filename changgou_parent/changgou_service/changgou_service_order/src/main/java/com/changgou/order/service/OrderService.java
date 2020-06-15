@@ -27,7 +27,7 @@ public interface OrderService {
      * @param: [order]
      * @return: void
      */
-    void add(Order order);
+    String add(Order order);
 
     /***
      * 修改
