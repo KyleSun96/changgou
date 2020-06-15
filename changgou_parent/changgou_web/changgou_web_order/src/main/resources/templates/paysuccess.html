@@ -5,74 +5,80 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
-    <title>微信支付页</title>
+    <title>支付页-成功</title>
     <link rel="icon" href="/img/favicon.ico">
     <link rel="stylesheet" type="text/css" href="/css/all.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/pages-weixinpay.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/pages-paysuccess.css"/>
 </head>
 
 <body>
-<!--head-->
-<div class="top">
-    <div class="py-container">
-        <div class="shortcut">
-            <ul class="fl">
-                <li class="f-item">畅购欢迎您！</li>
-                <li class="f-item">请登录　<span><a href="#">免费注册</a></span></li>
-            </ul>
-            <ul class="fr">
-                <li class="f-item">我的订单</li>
-                <li class="f-item space"></li>
-                <li class="f-item">我的畅购</li>
-                <li class="f-item space"></li>
-                <li class="f-item">畅购会员</li>
-                <li class="f-item space"></li>
-                <li class="f-item">企业采购</li>
-                <li class="f-item space"></li>
-                <li class="f-item">关注畅购</li>
-                <li class="f-item space"></li>
-                <li class="f-item">客户服务</li>
-                <li class="f-item space"></li>
-                <li class="f-item">网站导航</li>
-            </ul>
+<!--页面顶部-->
+<div id="nav-bottom">
+    <!--顶部-->
+    <div class="nav-top">
+        <div class="top">
+            <div class="py-container">
+                <div class="shortcut">
+                    <ul class="fl">
+                        <li class="f-item">畅购欢迎您！</li>
+                        <li class="f-item">请<a href="login.html" target="_blank">登录</a>　
+                            <span><a href="register.html" target="_blank">免费注册</a></span>
+                        </li>
+                    </ul>
+                    <div class="fr typelist">
+                        <ul class="types">
+                            <li class="f-item"><span>我的订单</span></li>
+                            <li class="f-item"><span><a href="cart.html" target="_blank">我的购物车</a></span></li>
+                            <li class="f-item"><span><a href="home.html" target="_blank">我的畅购</a></span></li>
+                            <li class="f-item"><span>畅购会员</span></li>
+                            <li class="f-item"><span>企业采购</span></li>
+                            <li class="f-item"><span>关注畅购</span></li>
+                            <li class="f-item"><span><a href="cooperation.html" target="_blank">合作招商</a></span></li>
+                            <li class="f-item"><span><a href="shoplogin.html" target="_blank">商家后台</a></span></li>
+                            <li class="f-item"><span>网站导航</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--头部-->
+        <div class="header">
+            <div class="py-container">
+                <div class="yui3-g Logo">
+                    <div class="yui3-u Left logoArea">
+                        <a class="logo-bd" title="畅购" href="index.html" target="_blank"></a>
+                    </div>
+                    <div class="yui3-u Rit searchArea">
+                        <div class="search">
+                            <form action="" class="sui-form form-inline">
+                                <!--searchAutoComplete-->
+                                <div class="input-append">
+                                    <input type="text" id="autocomplete" class="input-error input-xxlarge"/>
+                                    <button class="sui-btn btn-xlarge btn-danger" type="button">搜索</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
 <div class="cart py-container">
-    <!--logoArea-->
-    <div class="logoArea">
-        <div class="fl logo"><span class="title">收银台</span></div>
-    </div>
     <!--主内容-->
-    <div class="checkout py-container  pay">
-        <div class="checkout-tit">
-            <h4 class="fl tit-txt"><span class="success-icon"></span><span class="success-info"
-                                                                           th:text="|订单提交成功，请您及时付款！订单号：${orderId}|"></span>
-            </h4>
-            <span class="fr"><em class="sui-lead">应付金额：</em><em class="orange money" th:text="${payMoney}"></em>元</span>
-            <div class="clearfix"></div>
-        </div>
-        <div class="checkout-steps">
-            <div class="fl weixin">微信支付</div>
-            <div class="fl sao">
-                <p class="red"></p>
-                <div class="fl code">
-                    <div id="qrcode"></div>
-                    <div class="saosao">
-                        <p>请使用微信扫一扫</p>
-                        <p>扫描二维码支付</p>
-                    </div>
-                </div>
-                <div class="fl phone">
-
-                </div>
-
+    <div class="paysuccess">
+        <div class="success">
+            <h3><img src="/img/_/right.png" width="48" height="48">　恭喜您，支付成功啦！</h3>
+            <div class="paydetail">
+                <p>支付方式：微信</p>
+                <p>支付金额：￥<em th:text="${payMoney}"></em>元</p>
+                <p class="button"><a href="myOrder.html" class="sui-btn btn-danger btn-xlarge">查看订单</a>&nbsp;&nbsp;&nbsp;&nbsp;<a
+                        href="index.html" class="sui-btn btn-xlarge btn-goshop">继续购物</a></p>
             </div>
-            <div class="clearfix"></div>
-            <p><a href="pay.html" target="_blank">> 其他支付方式</a></p>
         </div>
     </div>
-
 </div>
 <!-- 底部栏位 -->
 <!--页面底部-->
@@ -183,7 +189,7 @@
                     </div>
                     <div class="yui3-u-1-6">
                         <h4>帮助中心</h4>
-                        <img src="./img/wx_cz.jpg">
+                        <img src="/img/wx_cz.jpg">
                     </div>
                 </div>
             </div>
@@ -210,35 +216,8 @@
 
 
 </body>
-<script src="/js/plugins/qrcode.min.js"></script>
-<script src="/js/plugins/stomp.min.js"></script>
-<script type="text/javascript" th:inline="javascript">
-    let qrcode = new QRCode(document.getElementById("qrcode"), {
-        width: 240,
-        height: 240
-    });
-    qrcode.makeCode([[${code_url}]]);
-
-
-    let client = Stomp.client('ws://192.168.200.128:15674/ws');
-    let on_connect = function (x) {
-        id = client.subscribe("/exchange/paynotify", function (d) {
-            alert(d.body);
-            // 接收消息队列中的消息
-            let orderId = [[${orderId}]]
-            if (d.body == orderId) {
-                // 支付成功订单就是页面当前订单时，跳转页面
-                location.href = "/api/wxpay/toPaySuccess?payMoney=" + [[${payMoney}]]
-            }
-        });
-    };
-    let on_error = function () {
-        console.log('error');
-    };
-    client.connect('webguest', 'webguest', on_connect, on_error, '/');
-
-
-</script>
+<script src="/js/plugins/util.js"></script>
+<script src="/js/plugins/jquery/jquery.min.js"></script>
 
 
 </html>

@@ -64,4 +64,16 @@ public class PayController {
     }
 
 
+    /**
+     * @description: //TODO 支付成功后页面的跳转
+     * @param: [payMoney, model]
+     * @return: java.lang.String
+     */
+    @RequestMapping("/toPaySuccess")
+    public String toPaySuccess(Integer payMoney, Model model) {
+        model.addAttribute("payMoney", payMoney);
+        return "paysuccess";
+    }
+
+
 }

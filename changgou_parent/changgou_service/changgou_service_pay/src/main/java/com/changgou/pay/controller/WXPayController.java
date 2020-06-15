@@ -85,8 +85,9 @@ public class WXPayController {
                     // 消息的发送
                     rabbitTemplate.convertAndSend("", RabbitMQConfig.ORDER_PAY, JSON.toJSONString(message));
 
-                    // 完成双向通信
+                    // 完成双向通信，用于前端页面跳转
                     rabbitTemplate.convertAndSend("paynotify", "", result.get("out_trade_no"));
+
                 } else {
                     // 输出错误原因
                     System.out.println(map.get("err_code_des"));
