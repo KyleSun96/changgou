@@ -72,4 +72,13 @@ public interface OrderService {
      * @return: void
      */
     void updatePayStatus(String orderId, String transactionId);
+
+
+    /**
+     * @description: //TODO 关闭订单
+     * @param: [message]
+     * @return: void
+     */
+    void closeOrder(String orderId);
+
 }

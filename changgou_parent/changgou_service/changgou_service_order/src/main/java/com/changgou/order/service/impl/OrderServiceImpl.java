@@ -14,10 +14,12 @@ import com.changgou.order.pojo.Task;
 import com.changgou.order.service.CartService;
 import com.changgou.order.service.OrderService;
 import com.changgou.order.pojo.Order;
+import com.changgou.pay.feign.WXPayFeign;
 import com.changgou.user.feign.UserFeign;
 import com.changgou.util.IdWorker;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -45,6 +47,9 @@ public class OrderServiceImpl implements OrderService {
     private RedisTemplate redisTemplate;
 
     @Autowired
+    private RabbitTemplate rabbitTemplate;
+
+    @Autowired
     private IdWorker idWorker;
 
     @Autowired
@@ -55,6 +60,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private UserFeign userFeign;
+
+    @Autowired
+    private WXPayFeign wxPayFeign;
 
     @Autowired
     private TaskMapper taskMapper;
@@ -134,9 +142,11 @@ public class OrderServiceImpl implements OrderService {
         // 8.添加任务数据
         this.inputTaskData(order);
 
-
         // 7.从redis中删除购物车的相关数据
         redisTemplate.delete("cart_" + order.getUsername());
+
+        // 9.发送延迟消息
+        rabbitTemplate.convertAndSend("", "queue.ordercreate", orderId);
 
         return orderId;
     }
@@ -178,6 +188,7 @@ public class OrderServiceImpl implements OrderService {
         orderMapper.updateByPrimaryKey(order);
     }
 
+
     /**
      * 删除
      *
@@ -201,6 +212,7 @@ public class OrderServiceImpl implements OrderService {
         return orderMapper.selectByExample(example);
     }
 
+
     /**
      * 分页查询
      *
@@ -213,6 +225,7 @@ public class OrderServiceImpl implements OrderService {
         PageHelper.startPage(page, size);
         return (Page<Order>) orderMapper.selectAll();
     }
+
 
     /**
      * 条件+分页查询
@@ -263,6 +276,80 @@ public class OrderServiceImpl implements OrderService {
             orderLog.setOrderId(orderId);
             orderLogMapper.insert(orderLog);
         }
+    }
+
+
+    /**
+     * @description: //TODO 关闭订单
+     * @param: [message]
+     * @return: void
+     * <p>
+     * 1. 根据订单id查询 mysql 中的订单信息，判断订单是否存在，判断订单的支付状态
+     * 2. 基于微信查询订单信息(微信)
+     * 2.1 如果当前订单的支付状态为已支付，则进行数据补偿，补偿mysql中的订单信息
+     * 2.2 如果当前订单的支付状态为未支付，则修改mysql中的订单状态为已关闭、新增订单日志、恢复商品库存、基于微信关闭订单
+     */
+    @Override
+    @Transactional
+    public void closeOrder(String orderId) {
+
+        System.out.println("关闭订单业务开启：" + orderId);
+
+        // 1. 根据订单id查询 mysql 中的订单信息，判断订单是否存在，判断订单的支付状态
+        Order order = orderMapper.selectByPrimaryKey(orderId);
+
+        if (order == null) {
+            throw new RuntimeException("订单不存在!");
+        }
+
+        // 0代表未支付
+        if ("0".equals(order.getPayStatus())) {
+            System.out.println("当前订单不需要关闭");
+            return;
+        }
+        System.out.println("关闭订单校验通过：" + orderId);
+
+        // 2.基于微信查询订单信息(微信)
+        Map wxQueryMap = (Map) wxPayFeign.queryOrder(orderId).getData();
+        System.out.println("查询微信支付订单结果：" + wxQueryMap);
+
+        // 2.1 如果当前订单的支付状态为已支付，则进行数据补偿，补偿mysql中的订单信息
+        if ("SUCCESS".equals(wxQueryMap.get("trade_state"))) {
+            System.out.println("完成数据补偿");
+            this.updatePayStatus(orderId, (String) wxQueryMap.get("transaction_id"));
+        }
+
+        // 2.2 如果当前订单的支付状态为未支付，则修改mysql中的订单状态为已关闭、新增订单日志、恢复商品库存、基于微信关闭订单
+        if ("NOTPAY".equals(wxQueryMap.get("trade_state"))) {
+            System.out.println("执行订单关闭");
+
+            // a.修改订单状态
+            order.setUpdateTime(new Date());
+            order.setOrderStatus("4");  // 订单已关闭
+            orderMapper.updateByPrimaryKeySelective(order);
+
+            // b.新增订单日志
+            OrderLog orderLog = new OrderLog();
+            orderLog.setId(idWorker.nextId() + "");
+            orderLog.setOperater("system");
+            orderLog.setOperateTime(new Date());
+            orderLog.setOrderStatus("4");
+            orderLog.setOrderId(order.getId());
+            orderLogMapper.insert(orderLog);
+
+            // c.恢复商品库存
+            OrderItem _orderItem = new OrderItem();
+            _orderItem.setOrderId(orderId);
+            List<OrderItem> orderItems = orderItemMapper.select(_orderItem);
+            for (OrderItem orderItem : orderItems) {
+                skuFeign.resumeStockNum(orderItem.getSkuId(), orderItem.getNum());
+            }
+
+            // d.基于微信关闭订单
+            wxPayFeign.closeOrder(orderId);
+
+        }
+
     }
 
 
