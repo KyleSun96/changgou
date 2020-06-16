@@ -140,4 +140,15 @@ public class SkuController {
     }
 
 
+    /**
+     * @description: //TODO 回滚库存，扣减销量
+     * @param: [skuId, num]
+     * @return: com.changgou.entity.Result
+     */
+    @RequestMapping("/resumeStockNum")
+    public Result resumeStockNum(@RequestParam("skuId") String skuId, @RequestParam("num") Integer num) {
+        skuService.resumeStockNum(skuId, num);
+        return new Result(true, StatusCode.OK, "库存回滚成功");
+    }
+
 }

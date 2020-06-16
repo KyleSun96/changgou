@@ -3,6 +3,8 @@ package com.changgou.goods.service;
 import com.changgou.goods.pojo.Sku;
 import com.changgou.order.pojo.OrderItem;
 import com.github.pagehelper.Page;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 import java.util.Map;
@@ -72,4 +74,13 @@ public interface SkuService {
      * @return: void
      */
     void decrCount(String username);
+
+
+    /**
+     * @description: //TODO 回滚库存，扣减销量
+     * @param: [skuId, num]
+     * @return: void
+     */
+    void resumeStockNum(String skuId, Integer num);
+
 }

@@ -79,4 +79,24 @@ public class WXPayServiceImpl implements WXPayService {
         }
 
     }
+
+
+    /**
+     * @description: //TODO 基于微信关闭订单
+     * @param: [orderId]
+     * @return: java.util.Map
+     */
+    @Override
+    public Map closeOrder(String orderId) {
+        try {
+            Map<String, String> map = new HashMap<>();
+            map.put("out_trade_no", orderId);
+
+            return wxPay.closeOrder(map);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
