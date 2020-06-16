@@ -91,10 +91,18 @@ public interface OrderService {
 
 
     /**
-     * @description: //TODO 手动确认收货
+     * @description: //TODO 手动确认收货（用户收货后，15天内已确认）
      * @param: [orderId, operator]
      * @return: void
      */
     void manualConfirm(String orderId, String operator);
+
+
+    /**
+     * @description: //TODO 自动确认收货（用户收货后，15天内未确认）
+     * @param: [orderId, operator]
+     * @return: void
+     */
+    void autoConfirm();
 
 }

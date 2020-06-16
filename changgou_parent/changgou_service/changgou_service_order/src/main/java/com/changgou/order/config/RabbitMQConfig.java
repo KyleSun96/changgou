@@ -26,6 +26,9 @@ public class RabbitMQConfig {
     // 查询订单验证通知队列
     public static final String ORDER_PAY = "order_pay";
 
+    // 自动收货通知队列
+    public static final String ORDER_TACK = "order_tack";
+
     // 声明交换机
     @Bean(EX_BUYING_ADDPOINTUSER)
     public Exchange EX_BUYING_ADDPOINTUSER() {
@@ -46,6 +49,11 @@ public class RabbitMQConfig {
     @Bean
     public Queue queue() {
         return new Queue(ORDER_PAY);
+    }
+
+    @Bean
+    public Queue ORDER_TACK() {
+        return new Queue(ORDER_TACK);
     }
 
     // 队列绑定交换机

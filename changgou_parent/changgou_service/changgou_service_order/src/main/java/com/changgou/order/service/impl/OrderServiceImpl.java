@@ -4,16 +4,10 @@ import com.alibaba.fastjson.JSON;
 //import com.alibaba.fescar.spring.annotation.GlobalTransactional;
 import com.changgou.goods.feign.SkuFeign;
 import com.changgou.order.config.RabbitMQConfig;
-import com.changgou.order.dao.OrderItemMapper;
-import com.changgou.order.dao.OrderLogMapper;
-import com.changgou.order.dao.OrderMapper;
-import com.changgou.order.dao.TaskMapper;
-import com.changgou.order.pojo.OrderItem;
-import com.changgou.order.pojo.OrderLog;
-import com.changgou.order.pojo.Task;
+import com.changgou.order.dao.*;
+import com.changgou.order.pojo.*;
 import com.changgou.order.service.CartService;
 import com.changgou.order.service.OrderService;
-import com.changgou.order.pojo.Order;
 import com.changgou.pay.feign.WXPayFeign;
 import com.changgou.user.feign.UserFeign;
 import com.changgou.util.IdWorker;
@@ -26,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +34,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderLogMapper orderLogMapper;
+
+    @Autowired
+    private OrderConfigMapper orderConfigMapper;
 
     @Autowired
     private CartService cartService;
@@ -405,7 +403,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     /**
-     * @description: //TODO 手动确认收货
+     * @description: //TODO 手动确认收货（用户收货后，15天内已确认）
      * @param: [orderId, operator]
      * @return: void
      */
@@ -440,6 +438,44 @@ public class OrderServiceImpl implements OrderService {
         orderLog.setOrderId(order.getId());
         orderLogMapper.insertSelective(orderLog);
 
+    }
+
+
+    /**
+     * @description: //TODO 自动确认收货（用户收货后，15天内未确认）
+     * @param: [orderId, operator]
+     * @return: void
+     * <p>
+     * 1.从订单配置表中获取到订单自动确认的时间点
+     * 2.得到当前时间节点,向前数(订单自动确认的时间节点)天,作为过期的时间节点
+     * 3.从订单表中获取相关符合条件的数据(1.发货时间小于过期时间 2.订单收货状态为未确认)
+     * 4.循环遍历,执行确认收货
+     */
+    @Override
+    @Transactional
+    public void autoConfirm() {
+
+        // 表中只有一条订单配置数据，写死即可
+        OrderConfig orderConfig = orderConfigMapper.selectByPrimaryKey(1);
+
+        // 获取自动收货时间
+        Integer takeTimeout = orderConfig.getTakeTimeout();
+        // 获取当前时间
+        LocalDate now = LocalDate.now();
+        // 得到发货时间
+        LocalDate date = now.plusDays(-takeTimeout);
+
+        // 按条件查询,获取订单列表
+        Example example = new Example(Order.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andLessThan("consignTime", date);
+        criteria.andEqualTo("orderStatus", "2");
+        List<Order> orderList = orderMapper.selectByExample(example);
+
+        for (Order order : orderList) {
+            // 调用手动确认收货的方法
+            this.manualConfirm(order.getId(), "system");
+        }
     }
 
 
