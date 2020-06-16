@@ -89,4 +89,12 @@ public interface OrderService {
      */
     void batchSend(List<Order> orders);
 
+
+    /**
+     * @description: //TODO 手动确认收货
+     * @param: [orderId, operator]
+     * @return: void
+     */
+    void manualConfirm(String orderId, String operator);
+
 }

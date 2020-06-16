@@ -405,6 +405,45 @@ public class OrderServiceImpl implements OrderService {
 
 
     /**
+     * @description: //TODO 手动确认收货
+     * @param: [orderId, operator]
+     * @return: void
+     */
+    @Override
+    @Transactional
+    public void manualConfirm(String orderId, String operator) {
+
+        // 1.修改订单状态
+        Order order = orderMapper.selectByPrimaryKey(orderId);
+
+        if (order == null) {
+            throw new RuntimeException("订单不存在");
+        }
+
+        if (!"1".equals(order.getConsignStatus())) {
+            throw new RuntimeException("订单未发货");
+        }
+
+        order.setConsignStatus("2");        // 货物已送达
+        order.setOrderStatus("3");          // 订单已完成
+        order.setUpdateTime(new Date());
+        order.setEndTime(new Date());
+        orderMapper.updateByPrimaryKeySelective(order);
+
+        // 2.记录订单日志
+        OrderLog orderLog = new OrderLog();
+        orderLog.setId(idWorker.nextId() + "");
+        orderLog.setOperateTime(new Date());
+        orderLog.setOperater(operator);
+        orderLog.setConsignStatus("2");     // 货物已送达
+        orderLog.setOrderStatus("3");       // 订单已完成
+        orderLog.setOrderId(order.getId());
+        orderLogMapper.insertSelective(orderLog);
+
+    }
+
+
+    /**
      * 构建查询对象
      *
      * @param searchMap
