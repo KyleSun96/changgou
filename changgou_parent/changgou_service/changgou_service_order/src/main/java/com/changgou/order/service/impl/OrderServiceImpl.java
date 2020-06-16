@@ -354,6 +354,57 @@ public class OrderServiceImpl implements OrderService {
 
 
     /**
+     * @description: //TODO 批量发货
+     * @param: [orders]【订单集合】
+     * @return: void
+     */
+    @Override
+    @Transactional
+    public void batchSend(List<Order> orders) {
+
+        // 判断每一个订单的运单号和物流公司的值是否存在
+        for (Order order : orders) {
+            if (order.getId() == null) {
+                throw new RuntimeException("订单号不存在!");
+            }
+            if (order.getShippingCode() == null || order.getShippingName() == null) {
+                throw new RuntimeException("请输入运单号或物流公司的名称");
+            }
+        }
+
+        // 对待发货的订单状态进行校验
+        for (Order order : orders) {
+            Order order1 = orderMapper.selectByPrimaryKey(order.getId());
+            // 已发货 或 未下单
+            if (!"0".equals(order1.getConsignStatus()) || !"1".equals(order1.getOrderStatus())) {
+                throw new RuntimeException("订单状态不合法");
+            }
+        }
+
+        // 修改订单的状态为已发货
+        for (Order order : orders) {
+            order.setOrderStatus("2");      // 已发货
+            order.setConsignStatus("1");    // 已发货
+            order.setConsignTime(new Date());
+            order.setUpdateTime(new Date());
+            orderMapper.updateByPrimaryKeySelective(order);
+
+            // 记录订单日志
+            OrderLog orderLog = new OrderLog();
+            orderLog.setId(idWorker.nextId() + "");
+            orderLog.setOperateTime(new Date());
+            orderLog.setOperater("admin");
+            orderLog.setOrderStatus("2");
+            orderLog.setConsignStatus("1");
+            orderLog.setOrderId(order.getId());
+            orderLogMapper.insertSelective(orderLog);
+
+        }
+
+    }
+
+
+    /**
      * 构建查询对象
      *
      * @param searchMap

@@ -81,4 +81,12 @@ public interface OrderService {
      */
     void closeOrder(String orderId);
 
+
+    /**
+     * @description: //TODO 批量发货
+     * @param: [orders]【订单集合】
+     * @return: void
+     */
+    void batchSend(List<Order> orders);
+
 }

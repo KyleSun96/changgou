@@ -116,4 +116,16 @@ public class OrderController {
     }
 
 
+    /**
+     * @description: //TODO 批量发货
+     * @param: [orders]
+     * @return: com.changgou.entity.Result
+     */
+    @PostMapping("/batchSend")
+    public Result batchSend(@RequestBody List<Order> orders) {
+        orderService.batchSend(orders);
+        return new Result(true, StatusCode.OK, "批量发货成功");
+    }
+
+
 }
