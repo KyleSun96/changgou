@@ -1,37 +1,29 @@
-package com.changgou.seckill;
+package com.changgou.seckill.web;
 
-import com.changgou.util.IdWorker;
+import com.changgou.interceptor.FeignInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import tk.mybatis.spring.annotation.MapperScan;
 
-/**
- * @Program: ChangGou
- * @ClassName: SecKillApplication
- * @Description:
- * @Author: KyleSun
- **/
 @SpringBootApplication
 @EnableEurekaClient
-@EnableScheduling
-@MapperScan(basePackages = "com.changgou.seckill.dao")
-public class SecKillApplication {
+@EnableFeignClients(basePackages = {"com.changgou.seckill.feign"})
+public class SecKillWebApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SecKillApplication.class, args);
+        SpringApplication.run(SecKillWebApplication.class, args);
     }
 
-    // IdWorker
+    // feign拦截器
     @Bean
-    public IdWorker idWorker() {
-        return new IdWorker(1, 1);
+    public FeignInterceptor feignInterceptor() {
+        return new FeignInterceptor();
     }
 
     // 设置redisTemplate的序列化
@@ -51,5 +43,4 @@ public class SecKillApplication {
 
         return template;
     }
-
 }
