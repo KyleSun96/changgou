@@ -353,7 +353,7 @@
                 axios.get("/api/wseckillgoods/timeMenus").then(function (response) {
                     app.dateMenus = response.data;
 
-                    // 查询当前秒杀时间段下的秒杀商品列表
+                    // 查询当前秒杀时间段下的秒杀商品列表，默认给第一个时间段查询
                     app.searchList(app.dateMenus[0]);
 
                     // 计算正确的倒计时 时间差
@@ -388,16 +388,17 @@
                 var oneSecond = 1000;
                 var oneMinute = oneSecond * 60;
                 var oneHour = oneMinute * 60;
-                //小时
+                // 小时
                 var hours = Math.floor(num / oneHour);
-                //分钟
+                // 分钟
                 var minutes = Math.floor((num % oneHour) / oneMinute);
-                //秒
+                // 秒
                 var seconds = Math.floor((num % oneMinute) / oneSecond);
-                //拼接时间格式
+                // 拼接时间格式
                 var str = hours + ':' + minutes + ':' + seconds;
                 return str;
             },
+            // 根据秒杀时间段，查询秒杀商品信息
             searchList: function (time) {
                 axios.get("/api/wseckillgoods/list?time=" + time).then(function (response) {
                     app.goodslist = response.data.data;
