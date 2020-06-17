@@ -9,6 +9,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import tk.mybatis.spring.annotation.MapperScan;
 
 /**
@@ -19,6 +20,7 @@ import tk.mybatis.spring.annotation.MapperScan;
  **/
 @SpringBootApplication
 @EnableEurekaClient
+@EnableScheduling
 @MapperScan(basePackages = "com.changgou.seckill.dao")
 public class SecKillApplication {
 
