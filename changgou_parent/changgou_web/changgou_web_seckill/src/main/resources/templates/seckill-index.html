@@ -333,7 +333,7 @@
 <script src="/js/moment.min.js"></script>
 <script th:inline="javascript">
 
-    //过滤器
+    // Vue过滤器实现日期格式化
     Vue.filter("dateFilter", function (date, format) {
         return moment(date).format(format || "YYYY-MM-DD HH:mm:ss");
     });
@@ -344,8 +344,8 @@
             return {
                 goodslist: [],
                 dateMenus: [],
-                ctime: 0,     //当前时间菜单选中的下标,
-                alltimes: []
+                ctime: 0,       // 当前时间菜单选中的下标,
+                alltimes: []    // 用于存放倒计时时间的集合
             }
         },
         methods: {
@@ -353,10 +353,11 @@
                 axios.get("/api/wseckillgoods/timeMenus").then(function (response) {
                     app.dateMenus = response.data;
 
-                    //查询当前秒杀时间段下的秒杀商品列表
+                    // 查询当前秒杀时间段下的秒杀商品列表
                     app.searchList(app.dateMenus[0]);
 
-                    //计算正确的倒计时时间差
+                    // 计算正确的倒计时 时间差
+                    // app.$set(赋值的目标集合，正在操作的元素，时间 - 时间)
                     for (var i = 0; i < app.dateMenus.length; i++) {
                         if (i == 0) {
                             var x = i + 1;
@@ -366,13 +367,14 @@
                         }
                     }
 
-                    //时间差递减实现
+                    // 页面倒计时 时间差递减实现
+                    // window.setInterval【具体实现的业务，1秒执行一次业务】
                     let timers = window.setInterval(function () {
                         for (var i = 0; i < app.alltimes.length; i++) {
-                            //时间递减
+                            // 设置时间递减
                             app.$set(app.alltimes, i, app.alltimes[i] - 1000);
                             if (app.alltimes[i] <= 0) {
-                                //停止倒计时并重新刷新秒杀时间段
+                                // 停止倒计时并重新刷新秒杀时间段
                                 window.clearInterval(timers);
                                 app.loadMenus();
                             }
@@ -380,11 +382,12 @@
                     }, 1000);
                 })
             },
-            //将毫秒转换成时分秒
+            // 将毫秒转换成时分秒
+            // 【num】是传递进来的毫秒值
             timedown: function (num) {
                 var oneSecond = 1000;
                 var oneMinute = oneSecond * 60;
-                var oneHour = oneMinute * 60
+                var oneHour = oneMinute * 60;
                 //小时
                 var hours = Math.floor(num / oneHour);
                 //分钟
