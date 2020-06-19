@@ -1,5 +1,6 @@
 package com.changgou.seckill;
 
+import com.changgou.seckill.config.TokenDecode;
 import com.changgou.util.IdWorker;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -50,6 +51,12 @@ public class SecKillApplication {
         template.afterPropertiesSet();
 
         return template;
+    }
+
+    // 令牌解析类
+    @Bean
+    public TokenDecode tokenDecode() {
+        return new TokenDecode();
     }
 
 }
