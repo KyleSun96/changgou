@@ -3,6 +3,7 @@ package com.changgou.seckill.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.changgou.seckill.config.ConfirmMessageSender;
 import com.changgou.seckill.config.RabbitMQConfig;
+import com.changgou.seckill.dao.SecKillOrderMapper;
 import com.changgou.seckill.pojo.SeckillGoods;
 import com.changgou.seckill.pojo.SeckillOrder;
 import com.changgou.seckill.service.SecKillOrderService;
@@ -37,6 +38,9 @@ public class SecKillOrderServiceImpl implements SecKillOrderService {
     @Autowired
     private ConfirmMessageSender confirmMessageSender;
 
+    @Autowired
+    private SecKillOrderMapper secKillOrderMapper;
+
 
     /**
      * @description: //TODO 秒杀异步下单
@@ -54,6 +58,12 @@ public class SecKillOrderServiceImpl implements SecKillOrderService {
         // 防止重复提交，恶意刷单
         String preventRepeatCommit = this.preventRepeatCommit(username, id);
         if ("fail".equals(preventRepeatCommit)) {
+            return false;
+        }
+
+        // 防止相同商品重复购买
+        SeckillOrder order = secKillOrderMapper.getOrderInfoByUserNameAndGoodsId(username, id);
+        if (order != null) {
             return false;
         }
 
