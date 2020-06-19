@@ -1,6 +1,6 @@
 package com.changgou.seckill.task;
 
-import com.changgou.seckill.dao.SeckillGoodsMapper;
+import com.changgou.seckill.dao.SecKillGoodsMapper;
 import com.changgou.seckill.pojo.SeckillGoods;
 import com.changgou.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class SecKillGoodsPushTask {
     public static final String SECKILL_GOODS_STOCK_COUNT_KEY = "seckill_goods_stock_count_";
 
     @Autowired
-    private SeckillGoodsMapper seckillGoodsMapper;
+    private SecKillGoodsMapper seckillGoodsMapper;
 
     @Autowired
     private RedisTemplate redisTemplate;
