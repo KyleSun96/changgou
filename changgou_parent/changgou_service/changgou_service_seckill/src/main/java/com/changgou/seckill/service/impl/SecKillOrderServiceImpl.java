@@ -13,6 +13,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Program: ChangGou
@@ -49,6 +50,12 @@ public class SecKillOrderServiceImpl implements SecKillOrderService {
      */
     @Override
     public boolean add(Long id, String time, String username) {
+
+        // 防止重复提交，恶意刷单
+        String preventRepeatCommit = this.preventRepeatCommit(username, id);
+        if ("fail".equals(preventRepeatCommit)) {
+            return false;
+        }
 
         // 获取商品信息
         SeckillGoods seckillGoods = (SeckillGoods) redisTemplate.boundHashOps(SECKILL_GOODS_KEY + time).get(id);
@@ -91,5 +98,28 @@ public class SecKillOrderServiceImpl implements SecKillOrderService {
         confirmMessageSender.sendMessage("", RabbitMQConfig.SECKILL_ORDER_QUEUE, JSON.toJSONString(seckillOrder));
 
         return true;
+    }
+
+
+    /**
+     * @description: //TODO 防止重复提交，恶意刷单
+     * @param: [username, id]
+     * @return: java.lang.String
+     */
+    private String preventRepeatCommit(String username, Long id) {
+        String redisKey = "seckill_user_" + username + "_id_" + id;
+        // 设置自增长 每次加 1
+        long count = redisTemplate.opsForValue().increment(redisKey, 1);
+
+        if (count == 1) {
+            // 设置有效期五分钟
+            redisTemplate.expire(redisKey, 5, TimeUnit.MINUTES);
+            return "success";
+        }
+        // 如果相同的redisKey再次传入，就会增加，变成2 --> 提交失败
+        if (count > 1) {
+            return "fail";
+        }
+        return "fail";
     }
 }
