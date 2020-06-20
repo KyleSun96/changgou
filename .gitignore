@@ -25,9 +25,24 @@ hs_err_pid*
 
 *.iml
 **/.idea/
+**/mvnw
+**/mvnw.cmd
+**/.mvn
 **/target
 **/rebel.xml
 **/rebel-remote.xml
 **/.rebel.xml.bak
 **/.rebel-remote.xml.bak
+
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+dependency-reduced-pom.xml
+release.properties
+buildNumber.properties
+.mvn/timing.properties
+
+
+
 
