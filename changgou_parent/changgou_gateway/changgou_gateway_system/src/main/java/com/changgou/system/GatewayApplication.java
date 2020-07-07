@@ -22,13 +22,20 @@ public class GatewayApplication {
         SpringApplication.run(GatewayApplication.class, args);
     }
 
-    // 定义一个 KeyResolver
-    @Bean
+    /**
+     * @description: //TODO 创建一个唯一标识解析对象，用于识别某个用户
+     * @return: org.springframework.cloud.gateway.filter.ratelimit.KeyResolver
+     * @author: KyleSun swy0907163@163.com
+     */
+    @Bean(name = "ipKeyResolver")
     public KeyResolver ipKeyResolver() {
         return new KeyResolver() {
             @Override
             public Mono<String> resolve(ServerWebExchange exchange) {
-                return Mono.just(exchange.getRequest().getRemoteAddress().getHostName());
+                // 获取用户ip
+                String hostName = exchange.getRequest().getRemoteAddress().getHostName();
+                // 将用户ip作为唯一标识
+                return Mono.just(hostName);
             }
         };
     }

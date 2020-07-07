@@ -21,8 +21,8 @@ spring:
             - StripPrefix= 1
             - name: RequestRateLimiter # 请求数限流 名字不能随便写
               args:
-                key-resolver: "#{@ipKeyResolver}"
-                redis-rate-limiter.replenishRate: 1 # 令牌桶每秒填充平均速率
+                key-resolver: "#{@ipKeyResolver}"   # 指定识别用户唯一标识的对象
+                redis-rate-limiter.replenishRate: 1 # 令牌桶每秒填充平均速率，即每秒只能访问一次
                 redis-rate-limiter.burstCapacity: 1 # 令牌桶总容量
         - id: system
           uri: lb://system
