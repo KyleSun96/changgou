@@ -3,6 +3,7 @@ spring:
     name: sysgateway
   cloud:
     gateway:
+      # 网关中配置跨域
       globalcors:
         cors-configurations:
           '[/**]': # 匹配所有请求
