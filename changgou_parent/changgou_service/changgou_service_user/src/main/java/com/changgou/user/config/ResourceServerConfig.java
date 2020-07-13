@@ -83,7 +83,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http.authorizeRequests()
                 // 下边的路径放行
                 .antMatchers(
-                        // 配置放行地址
+                        // user服务已经接入oauth2，需要配置 查询数据库 放行
                         "/user/add","/user/load/**").
                 permitAll()
                 .anyRequest().

@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * 安全认证配置类
+ * 安全认证配置类：相当于SpringSecurity的配置文件
  */
 @Configuration
 @EnableWebSecurity
@@ -20,7 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
-     * @description: //TODO 放行安全拦截的URL
+     * @description: //TODO 放行安全不用拦截的URL：登录相关和静态资源
      * @param: [web]
      * @return: void
      */
@@ -64,13 +64,13 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .httpBasic()            //启用Http基本身份验证
+                .httpBasic()            // 启用Http基本身份验证
                 .and()
-                .formLogin()            //启用表单身份验证
+                .formLogin()            // 启用表单身份验证
                 .and()
-                .authorizeRequests()    //限制基于Request请求访问
+                .authorizeRequests()    // 限制基于Request请求访问
                 .anyRequest()
-                .authenticated();       //其他请求都需要经过验证
+                .authenticated();       // 其他请求都需要经过验证
 
         // 开启表单登录
         http.formLogin().loginPage("/oauth/toLogin")    // 设置访问登录页面路径

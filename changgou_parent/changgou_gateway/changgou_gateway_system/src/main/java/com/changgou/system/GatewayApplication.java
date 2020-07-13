@@ -23,7 +23,7 @@ public class GatewayApplication {
     }
 
     /**
-     * @description: //TODO 创建一个唯一标识解析对象，用于识别某个用户
+     * @description: //TODO 创建一个唯一标识解析对象，用于识别某个用户，用于限流
      * @return: org.springframework.cloud.gateway.filter.ratelimit.KeyResolver
      * @author: KyleSun swy0907163@163.com
      */

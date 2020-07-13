@@ -18,6 +18,11 @@ public class OAuthApplication {
         SpringApplication.run(OAuthApplication.class, args);
     }
 
+    /**
+     * @description: //TODO 封装web请求，将请求头里的认证信息携带过去
+     * @return: org.springframework.web.client.RestTemplate
+     * @author: KyleSun swy0907163@163.com
+     */
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();

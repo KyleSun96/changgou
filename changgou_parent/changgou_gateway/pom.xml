@@ -30,7 +30,12 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
-        <!--redis-->
+        <!--
+            限流redis依赖
+                为什么网关限流需要使redis？
+                我们网关限流使用的是令牌桶方法，
+                用redis作为桶容器，以list数据结构存入，可以实现一边取一边存
+        -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis-reactive</artifactId>

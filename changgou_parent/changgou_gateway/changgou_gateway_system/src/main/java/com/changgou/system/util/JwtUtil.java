@@ -44,7 +44,7 @@ public class JwtUtil {
                 .setSubject(subject)        // 主题  可以是JSON数据
                 .setIssuer("admin")         // 签发者
                 .setIssuedAt(now)           // 签发时间
-                .signWith(signatureAlgorithm, secretKey) // 使用HS256对称加密算法签名, 第二个参数为秘钥
+                .signWith(signatureAlgorithm, secretKey) // 使用HS256对称加密算法签名, 第二个参数为生成加密后的秘钥
                 .setExpiration(expDate);    // 设置过期时间
         return builder.compact();
     }

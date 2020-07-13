@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 /**
- * 自定义授权认证类
+ * 自定义授权认证类：SpringSecurity用来获取用户信息的接口
  */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -40,6 +40,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         // 没有认证统一采用httpBasic认证，httpBasic中存储了client_id和client_secret，开始认证client_id和client_secret
         if (authentication == null) {
             ClientDetails clientDetails = clientDetailsService.loadClientByClientId(username);
+            // 认证客户端
             if (clientDetails != null) {
                 // 秘钥
                 String clientSecret = clientDetails.getClientSecret();
@@ -57,7 +58,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         // 根据用户名查询用户信息
         // String pwd = new BCryptPasswordEncoder().encode("itheima");
         com.changgou.user.pojo.User userInfo = userFeign.findUserInfo(username);
-        // 创建User对象
+        // 设置User权限
         String permissions = "admin,user,salesman";
         UserJwt userDetails = new UserJwt(username, userInfo.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList(permissions));
         return userDetails;

@@ -26,8 +26,8 @@ public class CookieUtil {
     public static void addCookie(HttpServletResponse response, String domain, String path, String name,
                                  String value, int maxAge, boolean httpOnly) {
         Cookie cookie = new Cookie(name, value);
-        cookie.setDomain(domain);
-        cookie.setPath(path);
+        cookie.setDomain(domain);   // 如果需要在同一个一级域名下共享cookie信息，设置此项
+        cookie.setPath(path);       // 如果设置为 / ，表示在同一个Tomcat服务器中，多个APP之间共享cookie信息
         cookie.setMaxAge(maxAge);
         cookie.setHttpOnly(httpOnly);
         response.addCookie(cookie);

@@ -84,7 +84,7 @@ public class AuthController {
 
 
     /**
-     * @description: //TODO 将令牌的断标识jti存入到cookie中
+     * @description: //TODO 将令牌的短标识jti存入到cookie中
      * @param: [jti, response]
      * @return: void
      */

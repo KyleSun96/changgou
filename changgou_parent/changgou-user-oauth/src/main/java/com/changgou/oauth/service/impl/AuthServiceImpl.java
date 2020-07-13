@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @Program: ChangGou
  * @ClassName: AuthServiceImpl
- * @Description:
+ * @Description: RestTemplate：用于封装web请求，将请求头里的认证信息携带过去
  * @Author: KyleSun
  **/
 @Service
@@ -39,7 +39,7 @@ public class AuthServiceImpl implements AuthService {
     private LoadBalancerClient loadBalancerClient;
 
     @Autowired
-    private StringRedisTemplate stringRedisTemplate;    // 注入redis模板类以操作redis
+    private StringRedisTemplate stringRedisTemplate;    // redis的key和value只能是string类型时候使用
 
     @Value("${auth.ttl}")
     private long ttl;
@@ -66,7 +66,7 @@ public class AuthServiceImpl implements AuthService {
         // 2.1 封装请求参数 【body，headers】
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(body, headers);
 
-        // 3. 放行401、400异常：表示当前用户没有权限，此时我们设置后端不对着两个异常编码进行处理，而是直接返回给前端
+        // 3. 放行401、400异常：表示当前用户没有权限。重写错误处理，此时我们设置后端不对着两个异常编码进行处理，而是直接返回给前端
         restTemplate.setErrorHandler(new DefaultResponseErrorHandler() {
             @Override
             public void handleError(ClientHttpResponse response) throws IOException {
@@ -91,6 +91,7 @@ public class AuthServiceImpl implements AuthService {
         authToken.setJti((String) map.get("jti"));
 
         // C.将jti作为redis中的key,将jwt作为redis中的value进行数据的存放
+        // 设置redis的过期时间，以免用户不退出用户直接关闭浏览器后，redis任积压大量无用信息
         stringRedisTemplate.boundValueOps(authToken.getJti()).set(authToken.getAccessToken(), ttl, TimeUnit.SECONDS);
         return authToken;
 
